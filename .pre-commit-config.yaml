@@ -1,0 +1,10 @@
+# Example of pre-commit for formatting check
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.3.0 # Utilisez la dernière version stable
+    hooks:
+      # Exécute le linter (erreurs et imports)
+      - id: ruff
+        args: [ --fix ]
+      # Exécute le formateur (espaces et layout)
+      - id: ruff-format

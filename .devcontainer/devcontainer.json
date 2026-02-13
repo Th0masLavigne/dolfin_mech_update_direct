@@ -1,0 +1,73 @@
+{
+  "name": "Dolfin_mech Dev",
+  "image": "dolfin:v2019.2.0.dev0",
+  
+  "containerEnv": {
+    "PIP_ROOT_USER_ACTION": "ignore"
+  },
+
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "autoDocstring.docstringFormat": "google",
+        // Pylance Inlay Hints
+        "python.analysis.exclude": ["docs"],
+        "python.analysis.inlayHints.functionReturnTypes": true,
+        "python.analysis.inlayHints.variableTypes": true,
+        "python.analysis.inlayHints.pytestParameters": true,
+        "python.analysis.inlayHints.callArgumentNames": "all",
+        "editor.inlayHints.enabled": "offUnlessPressed",
+        "python.analysis.typeCheckingMode": "strict",
+        //
+        "python.analysis.importFormat": "absolute",
+        "python.analysis.extraPaths": [
+                "/usr/lib/python3/dist-packages", 
+                "/workspaces/dolfin_mech",
+                "/workspaces/hydrogels/src"
+            ],
+            "python.autoComplete.extraPaths": [
+                "/usr/lib/python3/dist-packages",
+                "/workspaces/dolfin_mech",
+                "/workspaces/hydrogels/src"
+            ],
+        "python.analysis.diagnosticSeverityOverrides": {
+        // Silences "Type of parameter is unknown" for fenics objects
+        "reportUnknownParameterType": "none",
+        "reportUnknownVariableType": "none",
+        "reportUnknownMemberType": "none",
+        "reportUnknownArgumentType": "none",
+        "reportAttributeAccessIssue": "none",
+        "reportOperatorIssue": "none",
+        "reportMissingTypeStubs":"none"
+        },
+        "[python]": {
+          "editor.defaultFormatter": "charliermarsh.ruff",
+          "editor.formatOnSave": true,
+          "editor.codeActionsOnSave": {
+            "source.fixAll.ruff": "explicit",
+            "source.organizeImports.ruff": "explicit"
+          },
+          "editor.insertSpaces": false,
+          "editor.tabSize": 4
+        },
+        "ruff.importStrategy": "fromEnvironment"
+      },
+      "extensions": [
+        "ms-python.python",
+        "ms-toolsai.jupyter",
+        "ms-python.vscode-pylance",
+        "ms-python.debugpy",
+        "ms-python.python-targets",
+        "oderwat.indent-rainbow",
+        "charliermarsh.ruff",
+        "njpwerner.autodocstring"
+      ]
+    }
+  },
+
+  "mounts": [
+    "source=${localWorkspaceFolder}/../../sphinx_autodocs/build_docs_dolfin_mech,target=/workspaces/docs/build_docs,type=bind"
+  ],
+  
+  "postCreateCommand": "make install"
+}
