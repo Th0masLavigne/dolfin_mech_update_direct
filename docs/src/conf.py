@@ -53,7 +53,7 @@ myst_dmath_double_inline = True  # Allows $$ inline
 # -----------------------------------------------------------------------------
 autodoc_default_options = {
 	"members": True,
-	"undoc-members": True,
+	#"undoc-members": True,
 	"private-members": False,
 	"show-inheritance": True,
 	"exclude-members": "__init__,__dataclass_fields__",
