@@ -8,6 +8,7 @@ from .Kirchhoff import Kirchhoff, KirchhoffBulk, KirchhoffDev
 from .Lung_Wbulk import WbulkLung
 from .Lung_Wpore import WporeLung
 from .Lung_Wskel import WskelLung
+from .MooneyRivlin import MooneyRivlin
 
 __all__ = [
 	"ExponentialNeoHookean",
@@ -22,4 +23,5 @@ __all__ = [
 	"WbulkLung",
 	"WporeLung",
 	"WskelLung",
+	"MooneyRivlin",
 ]
