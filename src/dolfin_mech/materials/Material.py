@@ -429,9 +429,9 @@ def material_factory(kinematics, model, parameters):
 	elif model in ("hooke_bulk", "Hooke_bulk", "H_bulk"):
 		material = materials.elastic.HookeBulk(kinematics=kinematics, parameters=parameters)
 	elif model in ("saintvenantkirchhoff", "SaintVenantKirchhoff", "kirchhoff", "Kirchhoff", "SVK"):
-		material = materials.KirchhoffElasticMaterial(kinematics=kinematics, parameters=parameters)
+		material = materials.elastic.Kirchhoff(kinematics=kinematics, parameters=parameters)
 	elif model in ("saintvenantkirchhoff_dev", "SaintVenantKirchhoff_dev", "kirchhoff_dev", "Kirchhoff_dev", "SVK_dev"):
-		material = materials.KirchhoffDevElasticMaterial(kinematics=kinematics, parameters=parameters)
+		material = materials.elastic.KirchhoffDev(kinematics=kinematics, parameters=parameters)
 	elif model in (
 		"saintvenantkirchhoff_bulk",
 		"SaintVenantKirchhoff_bulk",
@@ -439,7 +439,7 @@ def material_factory(kinematics, model, parameters):
 		"Kirchhoff_bulk",
 		"SVK_bulk",
 	):
-		material = materials.KirchhoffBulkElasticMaterial(kinematics=kinematics, parameters=parameters)
+		material = materials.elastic.KirchhoffBulk(kinematics=kinematics, parameters=parameters)
 	elif model in ("neohookean", "NeoHookean", "NH"):
 		material = materials.NeoHookeanElasticMaterial(kinematics=kinematics, parameters=parameters)
 	elif model in ("neohookean_bar", "NeoHookean_bar", "NH_bar"):

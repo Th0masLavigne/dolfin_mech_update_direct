@@ -4,6 +4,7 @@ from .Elastic import ElasticMaterial
 from .ExponentialNeoHookean import ExponentialNeoHookean
 from .ExponentialOgdenCiarletGeymonat import ExponentialOgdenCiarletGeymonat
 from .Hooke import Hooke, HookeBulk, HookeDev
+from .Kirchhoff import Kirchhoff, KirchhoffBulk, KirchhoffDev
 
 __all__ = [
 	"ExponentialNeoHookean",
@@ -12,4 +13,7 @@ __all__ = [
 	"Hooke",
 	"HookeBulk",
 	"HookeDev",
+	"Kirchhoff",
+	"KirchhoffBulk",
+	"KirchhoffDev",
 ]
