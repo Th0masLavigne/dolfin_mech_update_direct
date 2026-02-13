@@ -5,6 +5,7 @@ from .ExponentialNeoHookean import ExponentialNeoHookean
 from .ExponentialOgdenCiarletGeymonat import ExponentialOgdenCiarletGeymonat
 from .Hooke import Hooke, HookeBulk, HookeDev
 from .Kirchhoff import Kirchhoff, KirchhoffBulk, KirchhoffDev
+from .Lung_Wbulk import WbulkLung
 
 __all__ = [
 	"ExponentialNeoHookean",
@@ -16,4 +17,5 @@ __all__ = [
 	"Kirchhoff",
 	"KirchhoffBulk",
 	"KirchhoffDev",
+	"WbulkLung",
 ]
