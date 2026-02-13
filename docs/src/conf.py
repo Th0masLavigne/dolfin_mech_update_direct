@@ -6,6 +6,7 @@ import sys
 current_dir = Path(__file__).parent.resolve()
 project_root = current_dir.parent.parent
 sys.path.insert(0, str(project_root))
+sys.path.insert(0, str(project_root/ "src"))
 # -----------------------------------------------------------------------------
 # Project information
 # -----------------------------------------------------------------------------
@@ -101,7 +102,7 @@ autoapi_options = [
 	# "undoc-members",
 	"show-inheritance",
 	"imported-members", 
-	"show-module-summary", 
+	# "show-module-summary", 
 ]
 
 # -----------------------------------------------------------------------------
