@@ -1,0 +1,219 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>dolfin_mech.core.mesh2ugrid &mdash; dolfin_mech</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=3d137114" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-design.min.css?v=95c83b7e" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=3ae79941"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../../_static/copybutton.js?v=ccdb6887"></script>
+      <script src="../../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="dolfin_mech.core.QOI" href="../QOI/index.html" />
+    <link rel="prev" title="dolfin_mech.core.FOI" href="../FOI/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            dolfin_mech
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../api_toc.html">API Documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../index.html">Core Package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html">Core</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../compute_error/index.html">Compute Error</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../FOI/index.html">Foi</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Mesh2Ugrid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../QOI/index.html">Qoi</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../TimeVaryingConstant/index.html">Timevaryingconstant</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../write_VTU_file/index.html">Write Vtu File</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../XDMFFile/index.html">Xdmffile</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../kinematics/index.html">Kinematics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../kinematics/InverseKinematics/index.html">Inversekinematics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../kinematics/Kinematics/index.html">Kinematics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../kinematics/LinearizedKinematics/index.html">Linearizedkinematics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../materials/index.html">Materials</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../materials/elastic/index.html">Elastic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../materials/inelastic/index.html">Inelastic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../materials/Material/index.html">Material</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">dolfin_mech</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../../api_toc.html">API Documentation</a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Core Package</a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Core</a></li>
+      <li class="breadcrumb-item active">dolfin_mech.core.mesh2ugrid</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/api/dolfin_mech/core/mesh2ugrid/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-dolfin_mech.core.mesh2ugrid">
+<span id="dolfin-mech-core-mesh2ugrid"></span><h1>dolfin_mech.core.mesh2ugrid<a class="headerlink" href="#module-dolfin_mech.core.mesh2ugrid" title="Link to this heading"></a></h1>
+<p>Utilities for converting FEniCS objects to VTK Unstructured Grids.</p>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="dolfin_mech.core.mesh2ugrid.mesh2ugrid">
+<span class="sig-prename descclassname"><span class="pre">dolfin_mech.core.mesh2ugrid.</span></span><span class="sig-name descname"><span class="pre">mesh2ugrid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dolfin_mech.core.mesh2ugrid.mesh2ugrid" title="Link to this definition"></a></dt>
+<dd><p>Converts a FEniCS mesh to a VTK Unstructured Grid (vtkUnstructuredGrid).</p>
+<p>This utility allows for the transition from FEniCS finite element meshes
+to VTK objects for visualization or further processing using VTK/PyVista.
+It supports 2D (triangles) and 3D (tetrahedrons) meshes.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The coordinates and connectivity arrays are stored in a global scope
+temporarily within the function to prevent Python’s garbage collector
+from breaking the VTK pointers.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mesh</strong> (<em>dolfin.Mesh</em>) – The FEniCS mesh to convert.</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Verbosity level for debugging prints, defaults to 0.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A VTK unstructured grid representation of the mesh.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>vtk.vtkUnstructuredGrid</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#AssertionError" title="(in Python v3.14)"><strong>AssertionError</strong></a> – If the mesh dimension is not 2 or 3.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dolfin_mech.core.mesh2ugrid.add_function_to_ugrid">
+<span class="sig-prename descclassname"><span class="pre">dolfin_mech.core.mesh2ugrid.</span></span><span class="sig-name descname"><span class="pre">add_function_to_ugrid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ugrid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_3d_field</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dolfin_mech.core.mesh2ugrid.add_function_to_ugrid" title="Link to this definition"></a></dt>
+<dd><p>Attaches a FEniCS Function’s data to an existing VTK unstructured grid.</p>
+<p>The function values are extracted and added as point data to the VTK grid.
+Currently, only Lagrange (CG1) functions are supported as they map
+directly to mesh vertices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>function</strong> (<em>dolfin.Function</em>) – The FEniCS function containing the data (e.g., displacement, stress).</p></li>
+<li><p><strong>ugrid</strong> (<em>vtk.vtkUnstructuredGrid</em>) – The VTK unstructured grid to which data will be added.</p></li>
+<li><p><strong>force_3d_field</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – If 1 and the function is 2D, appends a zero Z-component, defaults to 1.</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Verbosity level, defaults to 0.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#AssertionError" title="(in Python v3.14)"><strong>AssertionError</strong></a> – If the function space is not compatible with mesh vertices (non-CG1).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dolfin_mech.core.mesh2ugrid.add_functions_to_ugrid">
+<span class="sig-prename descclassname"><span class="pre">dolfin_mech.core.mesh2ugrid.</span></span><span class="sig-name descname"><span class="pre">add_functions_to_ugrid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">functions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ugrid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dolfin_mech.core.mesh2ugrid.add_functions_to_ugrid" title="Link to this definition"></a></dt>
+<dd><p>Helper function to add multiple FEniCS functions to a VTK grid.</p>
+<p>Iterates through a list of functions and calls <a class="reference internal" href="#dolfin_mech.core.mesh2ugrid.add_function_to_ugrid" title="dolfin_mech.core.mesh2ugrid.add_function_to_ugrid"><code class="xref py py-func docutils literal notranslate"><span class="pre">add_function_to_ugrid()</span></code></a>
+for each.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>functions</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><em>dolfin.Function</em><em>]</em>) – List of FEniCS functions to attach.</p></li>
+<li><p><strong>ugrid</strong> (<em>vtk.vtkUnstructuredGrid</em>) – The target VTK unstructured grid.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../FOI/index.html" class="btn btn-neutral float-left" title="dolfin_mech.core.FOI" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../QOI/index.html" class="btn btn-neutral float-right" title="dolfin_mech.core.QOI" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Martin Genet.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

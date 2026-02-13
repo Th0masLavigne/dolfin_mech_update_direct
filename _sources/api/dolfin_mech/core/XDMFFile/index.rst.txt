@@ -1,0 +1,55 @@
+dolfin_mech.core.XDMFFile
+=========================
+
+.. py:module:: dolfin_mech.core.XDMFFile
+
+.. autoapi-nested-parse::
+
+   Utility for streamlined XDMF output management.
+
+
+
+
+
+Module Contents
+---------------
+
+.. py:class:: XDMFFile(filename, functions)
+
+   Wrapper for dolfin.XDMFFile to manage multi-field output.
+
+   This class simplifies the process of writing multiple FEniCS functions to
+   a single XDMF file at each time step. It configures standard settings for
+   performance and file size optimization.
+
+
+
+   **Configuration:**
+   - ``flush_output=True``: Ensures data is written to disk immediately (useful for monitoring).
+   - ``functions_share_mesh=True``: Optimizes file size by storing the mesh topology only once for all functions (assuming a fixed mesh).
+
+   :param filename: Path to the output file (e.g., "results.xdmf").
+   :type filename: str
+   :param functions: List of FEniCS Function objects to be saved.
+   :type functions: list
+
+
+   .. py:method:: close()
+
+      Closes the underlying XDMF file handle.
+
+
+
+   .. py:method:: write(time=0)
+
+      Writes the current state of all registered functions to the file.
+
+      Iterates through the list of functions provided at initialization and
+      appends their current values to the XDMF file, associated with the
+      given simulation time.
+
+      :param time: The current simulation time.
+      :type time: float
+
+
+

@@ -1,0 +1,82 @@
+dolfin_mech.core.TimeVaryingConstant
+====================================
+
+.. py:module:: dolfin_mech.core.TimeVaryingConstant
+
+.. autoapi-nested-parse::
+
+   Utility for time-dependent FEniCS constants.
+
+
+
+
+
+Module Contents
+---------------
+
+.. py:class:: TimeVaryingConstant(val=None, val_ini=None, val_fin=None)
+
+   A wrapper for dolfin.Constant that evolves linearly over a time step.
+
+   This class manages a FEniCS constant whose value needs to change during
+   the simulation (e.g., ramping up a load from 0 to 100 over a load step).
+   It supports both scalar and vector constants.
+
+
+
+   **Mechanism:**
+   The value at any normalized time step :math:`\tau \in [0, 1]` is computed as:
+
+   .. math::
+       v(\tau) = (1 - \tau) v_{ini} + \tau v_{fin}
+
+   It provides methods to update the underlying ``dolfin.Constant`` automatically
+   when driven by a time integrator.
+
+   :param val: A single value (if the constant is fixed).
+   :param val_ini: The initial value at the start of the step.
+   :param val_fin: The final value at the end of the step.
+
+
+   .. py:method:: set_value_sca(val)
+
+      Updates the value for a scalar constant.
+
+
+
+   .. py:method:: set_value_vec(val)
+
+      Updates the value for a vector constant.
+
+
+
+   .. py:method:: set_value_at_t_step(t_step)
+
+      Interpolates and sets the value based on the normalized step time.
+
+      :param t_step: Normalized time :math:`\tau \in [0,1]`.
+
+
+
+   .. py:method:: set_dvalue_at_t_step(t_step)
+
+      Sets the value to the *increment* :math:`v(\tau) - v_{old}`.
+
+      This is useful for incremental formulations where the unknown is the increment.
+
+
+
+   .. py:method:: restore_old_value()
+
+      Restores the internal state to the previous value.
+
+      Used when a time step fails and needs to be retried.
+
+
+
+   .. py:method:: homogenize()
+
+      Sets the value to zero (homogeneous condition).
+
+
+

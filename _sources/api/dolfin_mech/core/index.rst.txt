@@ -8,5 +8,10 @@ Core
    :maxdepth: 3
    :titlesonly:
 
+   Compute Error <compute_error/index>
    Foi <FOI/index>
+   Mesh2Ugrid <mesh2ugrid/index>
    Qoi <QOI/index>
+   Timevaryingconstant <TimeVaryingConstant/index>
+   Write Vtu File <write_VTU_file/index>
+   Xdmffile <XDMFFile/index>

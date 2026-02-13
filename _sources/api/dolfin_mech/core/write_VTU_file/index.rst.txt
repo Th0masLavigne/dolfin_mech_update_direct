@@ -1,0 +1,53 @@
+dolfin_mech.core.write_VTU_file
+===============================
+
+.. py:module:: dolfin_mech.core.write_VTU_file
+
+.. autoapi-nested-parse::
+
+   Utility for exporting FEniCS functions to VTU format.
+
+
+
+
+
+Module Contents
+---------------
+
+.. py:function:: write_VTU_file(filebasename, function, time=None, zfill=3, preserve_connectivity=False)
+
+   Exports a FEniCS Function to a VTU file for visualization in ParaView.
+
+   This function saves the state of a finite element field at a specific time step.
+   It is typically called inside the time integration loop.
+
+
+
+   **Export Modes:**
+
+   1.  **Standard (`preserve_connectivity=False`)**: Uses FEniCS's built-in
+       `dolfin.File` mechanism. This is robust but may interpolate high-order
+       functions to a linear (P1) visualization mesh, potentially altering the
+       visual connectivity or smoothing results. The function performs file
+       renaming operations to ensure a clean naming convention (``name_00X.vtu``).
+
+   2.  **Preserved Connectivity (`preserve_connectivity=True`)**: Uses a custom
+       conversion routine (`mesh2ugrid`) to map the FEniCS mesh directly to a
+       VTK Unstructured Grid. This is slower but ensures that the topology (nodes
+       and cells) in the output file exactly matches the computational mesh,
+       which is critical for visualizing Discontinuous Galerkin (DG) fields
+       or high-order elements correctly.
+
+   :param filebasename: The prefix for the output file path (e.g., "results/u").
+   :type filebasename: str
+   :param function: The FEniCS Function object to export.
+   :type function: dolfin.Function
+   :param time: The current time step index or value (used for file suffixing).
+   :type time: int or float
+   :param zfill: Number of digits for zero-padding the step number (e.g., 3 -> "_001").
+   :type zfill: int
+   :param preserve_connectivity: If True, uses the custom writer to maintain exact mesh topology.
+   :type preserve_connectivity: bool
+   :return: None
+
+
