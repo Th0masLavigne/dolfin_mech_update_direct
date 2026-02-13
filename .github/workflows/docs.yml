@@ -1,0 +1,41 @@
+name: Documentation
+
+on:
+  push:
+    branches: [ master, main, devel_restructure ]
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          make install
+
+      - name: Build Sphinx Documentation
+        run: |
+          # We override the DOC_OUT variable from your Makefile 
+          # to ensure it builds into the local workspace folder.
+          make docs DOC_OUT=./docs/build_docs/
+          
+          # Essential for GitHub Pages to serve folders with underscores
+          touch ./docs/build_docs/.nojekyll
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: ./docs/build_docs
+          branch: gh-pages
