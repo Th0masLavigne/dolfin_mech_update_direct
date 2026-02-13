@@ -75,7 +75,7 @@ except importlib.metadata.PackageNotFoundError:
 	__version__ = "0.0.0"
 
 # Expose sub-packages
-from . import materials
+from . import kinematics, materials, operators
 
 # Define what gets imported when someone uses `from rosaly_hydrogels import *`
-__all__ = ["materials"]
+__all__ = ["materials", "kinematics", "operators"]
