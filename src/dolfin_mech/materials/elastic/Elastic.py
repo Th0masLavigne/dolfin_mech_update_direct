@@ -24,7 +24,7 @@ Key Features:
 * **Linear Elasticity**: Implementation of the classic Hooke's law.
 """
 
-from .Material import Material
+from dolfin_mech.materials import Material
 
 ################################################################################
 

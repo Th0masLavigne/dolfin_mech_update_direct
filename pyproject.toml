@@ -78,8 +78,7 @@ local_scheme = "node-and-date"
 fallback_version = "0.0.0"
 
 [tool.setuptools.packages.find]
-# A modifier en 'src/dolfin_mech', gardez ["src"]
-where = ["."]
+where = ["src"]
 
 [tool.pytest.ini_options]
 minversion = "6.0"

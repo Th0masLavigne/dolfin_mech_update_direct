@@ -509,7 +509,7 @@ def material_factory(kinematics, model, parameters):
 			kinematics=kinematics, parameters=parameters, decoup=True
 		)
 	elif model in ("exponentialneoHookean"):
-		material = materials.ExponentialNeoHookeanElasticMaterial(kinematics=kinematics, parameters=parameters)
+		material = materials.elastic.ExponentialNeoHookean(kinematics=kinematics, parameters=parameters)
 	else:
 		assert 0, 'Material model ("' + model + '") not recognized. Aborting.'
 	return material

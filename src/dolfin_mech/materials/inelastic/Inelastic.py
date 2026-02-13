@@ -22,7 +22,7 @@ The hierarchy is rooted in the :class:`InelasticMaterial` base class, which
 standardizes the handling of internal state variables.
 """
 
-from .Material import Material
+from dolfin_mech.materials import Material
 
 ################################################################################
 
