@@ -12,12 +12,6 @@ dolfin_mech.materials.elastic.Lung_Wbulk
 
 
 
-Classes
--------
-
-.. autoapisummary::
-
-   dolfin_mech.materials.elastic.Lung_Wbulk.WbulkLung
 
 
 Module Contents

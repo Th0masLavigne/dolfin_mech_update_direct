@@ -68,20 +68,8 @@ dolfin_mech.materials.Material
 
 
 
-Classes
--------
-
-.. autoapisummary::
-
-   dolfin_mech.materials.Material.Material
 
 
-Functions
----------
-
-.. autoapisummary::
-
-   dolfin_mech.materials.Material.material_factory
 
 
 Module Contents

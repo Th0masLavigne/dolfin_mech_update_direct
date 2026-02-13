@@ -12,12 +12,6 @@ dolfin_mech.kinematics.Kinematics
 
 
 
-Classes
--------
-
-.. autoapisummary::
-
-   dolfin_mech.kinematics.Kinematics.Kinematics
 
 
 Module Contents

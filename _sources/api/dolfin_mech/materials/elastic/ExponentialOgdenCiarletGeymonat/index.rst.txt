@@ -9,12 +9,6 @@ dolfin_mech.materials.elastic.ExponentialOgdenCiarletGeymonat
 
 
 
-Classes
--------
-
-.. autoapisummary::
-
-   dolfin_mech.materials.elastic.ExponentialOgdenCiarletGeymonat.ExponentialOgdenCiarletGeymonat
 
 
 Module Contents

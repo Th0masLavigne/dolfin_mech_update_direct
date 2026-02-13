@@ -9,12 +9,6 @@ dolfin_mech.core.write_VTU_file
 
 
 
-Functions
----------
-
-.. autoapisummary::
-
-   dolfin_mech.core.write_VTU_file.write_VTU_file
 
 
 Module Contents

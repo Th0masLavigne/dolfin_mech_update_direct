@@ -21,12 +21,6 @@ dolfin_mech.materials.inelastic.Inelastic
 
 
 
-Classes
--------
-
-.. autoapisummary::
-
-   dolfin_mech.materials.inelastic.Inelastic.InelasticMaterial
 
 
 Module Contents

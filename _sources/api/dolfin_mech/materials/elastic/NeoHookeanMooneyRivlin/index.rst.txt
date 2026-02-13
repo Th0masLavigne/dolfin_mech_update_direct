@@ -12,12 +12,6 @@ dolfin_mech.materials.elastic.NeoHookeanMooneyRivlin
 
 
 
-Classes
--------
-
-.. autoapisummary::
-
-   dolfin_mech.materials.elastic.NeoHookeanMooneyRivlin.NeoHookeanMooneyRivlin
 
 
 Module Contents

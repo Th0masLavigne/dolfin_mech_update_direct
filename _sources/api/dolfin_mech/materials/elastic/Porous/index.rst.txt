@@ -13,12 +13,6 @@ dolfin_mech.materials.elastic.Porous
 
 
 
-Classes
--------
-
-.. autoapisummary::
-
-   dolfin_mech.materials.elastic.Porous.Porous
 
 
 Module Contents

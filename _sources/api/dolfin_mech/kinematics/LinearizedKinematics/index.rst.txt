@@ -12,12 +12,6 @@ dolfin_mech.kinematics.LinearizedKinematics
 
 
 
-Classes
--------
-
-.. autoapisummary::
-
-   dolfin_mech.kinematics.LinearizedKinematics.LinearizedKinematics
 
 
 Module Contents

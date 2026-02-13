@@ -9,12 +9,6 @@ dolfin_mech.core.XDMFFile
 
 
 
-Classes
--------
-
-.. autoapisummary::
-
-   dolfin_mech.core.XDMFFile.XDMFFile
 
 
 Module Contents

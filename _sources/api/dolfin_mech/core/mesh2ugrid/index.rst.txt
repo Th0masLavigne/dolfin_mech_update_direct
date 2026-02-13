@@ -9,14 +9,6 @@ dolfin_mech.core.mesh2ugrid
 
 
 
-Functions
----------
-
-.. autoapisummary::
-
-   dolfin_mech.core.mesh2ugrid.mesh2ugrid
-   dolfin_mech.core.mesh2ugrid.add_function_to_ugrid
-   dolfin_mech.core.mesh2ugrid.add_functions_to_ugrid
 
 
 Module Contents

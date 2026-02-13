@@ -12,12 +12,6 @@ dolfin_mech.materials.elastic.ExponentialNeoHookean
 
 
 
-Classes
--------
-
-.. autoapisummary::
-
-   dolfin_mech.materials.elastic.ExponentialNeoHookean.ExponentialNeoHookean
 
 
 Module Contents

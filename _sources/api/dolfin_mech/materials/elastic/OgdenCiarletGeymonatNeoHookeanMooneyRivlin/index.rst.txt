@@ -13,12 +13,6 @@ dolfin_mech.materials.elastic.OgdenCiarletGeymonatNeoHookeanMooneyRivlin
 
 
 
-Classes
--------
-
-.. autoapisummary::
-
-   dolfin_mech.materials.elastic.OgdenCiarletGeymonatNeoHookeanMooneyRivlin.OgdenCiarletGeymonatNeoHookeanMooneyRivlin
 
 
 Module Contents
