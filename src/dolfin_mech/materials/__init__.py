@@ -3,6 +3,7 @@
 This sub-package provides the material law/stresses of dolfin_mech as well as the material factory.
 """
 
+from .Elastic import ElasticMaterial
 from .Inelastic import InelasticMaterial
 from .Material import (
 	Material,
@@ -11,6 +12,7 @@ from .Material import (
 
 __all__ = [
 	"InelasticMaterial",
+	"ElasticMaterial",
 	"Material",
 	"material_factory",
 ]
