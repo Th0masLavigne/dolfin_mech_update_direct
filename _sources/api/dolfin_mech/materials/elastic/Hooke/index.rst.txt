@@ -13,6 +13,14 @@ dolfin_mech.materials.elastic.Hooke
 
 
 
+Classes
+-------
+
+.. autoapisummary::
+
+   dolfin_mech.materials.elastic.Hooke.Hooke
+   dolfin_mech.materials.elastic.Hooke.HookeBulk
+   dolfin_mech.materials.elastic.Hooke.HookeDev
 
 
 Module Contents

@@ -12,6 +12,12 @@ dolfin_mech.core.FOI
 
 
 
+Classes
+-------
+
+.. autoapisummary::
+
+   dolfin_mech.core.FOI.FOI
 
 
 Module Contents

@@ -9,6 +9,12 @@ dolfin_mech.core.TimeIntegrator
 
 
 
+Classes
+-------
+
+.. autoapisummary::
+
+   dolfin_mech.core.TimeIntegrator.TimeIntegrator
 
 
 Module Contents

@@ -12,6 +12,12 @@ dolfin_mech.materials.elastic.NeoHookean
 
 
 
+Classes
+-------
+
+.. autoapisummary::
+
+   dolfin_mech.materials.elastic.NeoHookean.NeoHookean
 
 
 Module Contents

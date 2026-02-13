@@ -12,6 +12,12 @@ dolfin_mech.materials.elastic.OgdenCiarletGeymonatNeoHookean
 
 
 
+Classes
+-------
+
+.. autoapisummary::
+
+   dolfin_mech.materials.elastic.OgdenCiarletGeymonatNeoHookean.OgdenCiarletGeymonatNeoHookean
 
 
 Module Contents

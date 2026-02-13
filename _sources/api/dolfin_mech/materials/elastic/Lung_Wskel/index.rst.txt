@@ -12,6 +12,12 @@ dolfin_mech.materials.elastic.Lung_Wskel
 
 
 
+Classes
+-------
+
+.. autoapisummary::
+
+   dolfin_mech.materials.elastic.Lung_Wskel.WskelLung
 
 
 Module Contents

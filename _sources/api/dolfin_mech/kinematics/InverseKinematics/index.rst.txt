@@ -12,6 +12,12 @@ dolfin_mech.kinematics.InverseKinematics
 
 
 
+Classes
+-------
+
+.. autoapisummary::
+
+   dolfin_mech.kinematics.InverseKinematics.InverseKinematics
 
 
 Module Contents

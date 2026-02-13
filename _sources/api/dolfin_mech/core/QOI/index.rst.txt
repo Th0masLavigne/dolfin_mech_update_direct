@@ -13,6 +13,12 @@ dolfin_mech.core.QOI
 
 
 
+Classes
+-------
+
+.. autoapisummary::
+
+   dolfin_mech.core.QOI.QOI
 
 
 Module Contents

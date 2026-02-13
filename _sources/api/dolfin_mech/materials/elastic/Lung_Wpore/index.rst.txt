@@ -12,6 +12,12 @@ dolfin_mech.materials.elastic.Lung_Wpore
 
 
 
+Classes
+-------
+
+.. autoapisummary::
+
+   dolfin_mech.materials.elastic.Lung_Wpore.WporeLung
 
 
 Module Contents

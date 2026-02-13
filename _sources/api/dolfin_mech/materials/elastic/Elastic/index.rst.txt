@@ -22,6 +22,12 @@ dolfin_mech.materials.elastic.Elastic
 
 
 
+Classes
+-------
+
+.. autoapisummary::
+
+   dolfin_mech.materials.elastic.Elastic.ElasticMaterial
 
 
 Module Contents

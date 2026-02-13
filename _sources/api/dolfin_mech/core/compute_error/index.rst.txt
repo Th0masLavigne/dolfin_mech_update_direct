@@ -9,6 +9,12 @@ dolfin_mech.core.compute_error
 
 
 
+Functions
+---------
+
+.. autoapisummary::
+
+   dolfin_mech.core.compute_error.compute_error
 
 
 Module Contents

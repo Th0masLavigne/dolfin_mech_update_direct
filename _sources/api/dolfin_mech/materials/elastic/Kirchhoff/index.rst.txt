@@ -12,6 +12,14 @@ dolfin_mech.materials.elastic.Kirchhoff
 
 
 
+Classes
+-------
+
+.. autoapisummary::
+
+   dolfin_mech.materials.elastic.Kirchhoff.Kirchhoff
+   dolfin_mech.materials.elastic.Kirchhoff.KirchhoffBulk
+   dolfin_mech.materials.elastic.Kirchhoff.KirchhoffDev
 
 
 Module Contents

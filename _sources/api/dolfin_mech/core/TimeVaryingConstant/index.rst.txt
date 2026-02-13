@@ -9,6 +9,12 @@ dolfin_mech.core.TimeVaryingConstant
 
 
 
+Classes
+-------
+
+.. autoapisummary::
+
+   dolfin_mech.core.TimeVaryingConstant.TimeVaryingConstant
 
 
 Module Contents
