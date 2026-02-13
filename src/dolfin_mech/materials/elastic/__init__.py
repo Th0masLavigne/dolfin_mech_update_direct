@@ -7,6 +7,7 @@ from .Hooke import Hooke, HookeBulk, HookeDev
 from .Kirchhoff import Kirchhoff, KirchhoffBulk, KirchhoffDev
 from .Lung_Wbulk import WbulkLung
 from .Lung_Wpore import WporeLung
+from .Lung_Wskel import WskelLung
 
 __all__ = [
 	"ExponentialNeoHookean",
@@ -20,4 +21,5 @@ __all__ = [
 	"KirchhoffDev",
 	"WbulkLung",
 	"WporeLung",
+	"WskelLung",
 ]
