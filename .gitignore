@@ -5,3 +5,6 @@ build
 dist
 *.egg-info
 .vscode
+
+docs/src/api/
+docs/build_docs

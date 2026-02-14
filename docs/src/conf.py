@@ -83,13 +83,13 @@ autoapi_dirs = [
 	"../../Tests"
 ]
 autoapi_ignore = [
-	"*tests/integration/analytical_consolidation_1D/debug_ressources/*",
+	"*LEGACY_resources/*"
 	"*conf.py*", "*setup.py*", "*/docs/*", "*/.pytest_cache/*",
 	"*/__pycache__/*", "*/.ruff_cache/*",
 ]
 autoapi_root = "api"
 autoapi_add_toctree_entry = False
-autoapi_keep_files = False # set True if debugging required remember to delete docs/src/api/
+autoapi_keep_files = True # set True if debugging required but remember to delete docs/src/api/ && allows to have [source] in docs
 autoapi_generate_api_docs = True
 autoapi_member_order = "bysource"
 autoapi_python_use_implicit_namespaces = True
