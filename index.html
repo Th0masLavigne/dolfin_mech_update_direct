@@ -17,7 +17,7 @@
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=311ef002"></script>
+      <script src="_static/documentation_options.js?v=401ce7ba"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -108,44 +108,179 @@
              
   <section class="tex2jax_ignore mathjax_ignore" id="dolfin-mech">
 <h1>Dolfin_mech<a class="headerlink" href="#dolfin-mech" title="Link to this heading"></a></h1>
-<p><a class="reference external" href="https://doi.org/10.5281/zenodo.8010870"><img alt="DOI" src="https://zenodo.org/badge/DOI/10.5281/zenodo.8010870.svg?style=flat-square" /></a>
-<a class="reference external" href="https://pypi.org/project/dolfin-mech"><img alt="PyPi Version" src="https://img.shields.io/pypi/v/dolfin-mech.svg?style=flat-square" /></a>
-<a class="reference external" href="https://pepy.tech/projects/dolfin-mech"><img alt="PyPI Downloads" src="https://static.pepy.tech/badge/dolfin-mech" /></a></p>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="id1">
 <h1>dolfin_mech<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
-<p>A set of FEniCS-based python tools for Computational Mechanics.</p>
-<p>The library has notably been used in:</p>
+<p><code class="docutils literal notranslate"><span class="pre">dolfin_mech</span></code> is a powerful Python library built on <a class="reference external" href="https://fenicsproject.org">FEniCS</a> designed for <strong>Computational Mechanics</strong>. It provides a modular high-level interface to solve complex problems in nonlinear elasticity, poromechanics, and multi-scale homogenization.</p>
+<p><a class="reference external" href="https://doi.org/10.5281/zenodo.8010870"><img alt="DOI" src="https://zenodo.org/badge/DOI/10.5281/zenodo.8010870.svg?style=flat-square" /></a>
+<a class="reference external" href="https://pypi.org/project/dolfin-mech"><img alt="PyPi Version" src="https://img.shields.io/pypi/v/dolfin-mech.svg?style=flat-square" /></a>
+<a class="reference external" href="https://pepy.tech/projects/dolfin-mech"><img alt="PyPI Downloads" src="https://static.pepy.tech/badge/dolfin-mech" /></a>
+<a class="reference external" href="https://mgenet.github.io/dolfin_mech"><img alt="Docs" src="https://img.shields.io/badge/docs-orange" /></a></p>
+<hr class="docutils" />
+<section id="the-core-idea-compositional-mechanics">
+<h2>The Core Idea: Compositional Mechanics<a class="headerlink" href="#the-core-idea-compositional-mechanics" title="Link to this heading"></a></h2>
+<p>The design philosophy of <code class="docutils literal notranslate"><span class="pre">dolfin_mech</span></code> is to decouple the physics of a mechanical problem into independent, reusable components. Instead of writing monolithic solvers, users compose a simulation by selecting:</p>
+<section id="kinematics-kinematics">
+<h3>1. Kinematics (<code class="docutils literal notranslate"><span class="pre">kinematics/</span></code>)<a class="headerlink" href="#kinematics-kinematics" title="Link to this heading"></a></h3>
+<p>Defines the <strong>geometric transformation</strong> and the measure of strain. It handles the mapping between reference and current configurations.</p>
 <ul class="simple">
-<li><p>[<a class="reference external" href="https://doi.org/10.1016/j.clinbiomech.2019.08.015">Genet (2019). A relaxed growth modeling framework for controlling growth-induced residual stresses. Clinical Biomechanics.</a>]</p></li>
-<li><p>[<a class="reference external" href="https://doi.org/10.1016/j.ijengsci.2021.103586">Álvarez-Barrientos, Hurtado &amp; Genet (2021). Pressure-driven micro-poro-mechanics: A variational framework for modeling the response of porous materials. International Journal of Engineering Science.</a>]</p></li>
-<li><p>[<a class="reference external" href="https://doi.org/10.1007/s10237-021-01547-0">Patte, Genet &amp; Chapelle (2022). A quasi-static poromechanical model of the lungs. Biomechanics and Modeling in Mechanobiology.</a>]</p></li>
-<li><p>[<a class="reference external" href="https://doi.org/10.1115/1.4054106">Patte, Brillet, Fetita, Gille, Bernaudin, Nunes, Chapelle &amp; Genet (2022). Estimation of regional pulmonary compliance in idiopathic pulmonary fibrosis based on personalized lung poromechanical modeling. Journal of Biomechanical Engineering.</a>]</p></li>
-<li><p>[<a class="reference external" href="https://doi.org/10.1016/j.jmbbm.2022.105600">Tueni, Allain &amp; Genet (2023). On the structural origin of the anisotropy in the myocardium: Multiscale modeling and analysis. Journal of the Mechanical Behavior of Biomedical Materials.</a>]</p></li>
-<li><p>[<a class="reference external" href="https://doi.org/10.1007/s10237-023-01691-9">Laville, Fetita, Gille, Brillet, Nunes, Bernaudin &amp; Genet (2023). Comparison of optimization parametrizations for regional lung compliance estimation using personalized pulmonary poromechanical modeling. Biomechanics and Modeling in Mechanobiology.</a>]</p></li>
-<li><p>[<a class="reference external" href="https://doi.org/10.1007/s10237-024-01876-w">Peyraut &amp; Genet (2024). A model of mechanical loading of the lungs including gravity and a balancing heterogeneous pleural pressure. Biomechanics and Modeling in Mechanobiology.</a>]</p></li>
-<li><p>[<a class="reference external" href="https://doi.org/10.5802/crmeca.279">Peyraut &amp; Genet (2025). Finite strain formulation of the discrete equilibrium gap principle: application to direct parameter estimation from large full-fields measurements. Comptes Rendus Mécanique.</a>]</p></li>
-<li><p>[<a class="reference external" href="https://doi.org/10.1016/j.ijsolstr.2025.113354">Manoochehrtayebi, Bel-Brunon &amp; Genet (2025). Finite strain micro-poro-mechanics: Formulation and compared analysis with macro-poro-mechanics. International Journal of Solids and Structures.</a>]</p></li>
-<li><p>[<a class="reference external" href="https://doi.org/10.1115/1.4068578">Peyraut &amp; Genet (2025). Inverse Uncertainty Quantification for Personalized Biomechanical Modeling: Application to Pulmonary Poromechanical Digital Twins. Journal of Biomechanical Engineering.</a>]</p></li>
-<li><p>[<a class="reference external" href="https://doi.org/10.1115/1.4070036">Manoochehrtayebi, Genet &amp; Bel-Brunon (2025). Micro-poro-mechanical modeling of lung parenchyma: Theoretical modeling and parameters identification. Journal of Biomechanical Engineering.</a>]</p></li>
+<li><p><strong>Role:</strong> Computes quantities like the deformation gradient , Green-Lagrange strain , or specific kinematics for <strong>Inverse Problems</strong> (finding the stress-free state from a deformed image).</p></li>
 </ul>
+</section>
+<section id="operators-operators">
+<h3>2. Operators (<code class="docutils literal notranslate"><span class="pre">operators/</span></code>)<a class="headerlink" href="#operators-operators" title="Link to this heading"></a></h3>
+<p>These represent the <strong>individual terms in the weak form</strong> of the partial differential equations (PDEs).</p>
+<ul class="simple">
+<li><p><strong>Role:</strong> Rather than defining one massive equation, <code class="docutils literal notranslate"><span class="pre">dolfin_mech</span></code> builds the equilibrium by summing operators (e.g., Internal Forces + Gravity + Surface Tension + Pressure). This allows for easy “plug-and-play” of different loading conditions.</p></li>
+</ul>
+</section>
+<section id="materials-materials">
+<h3>3. Materials (<code class="docutils literal notranslate"><span class="pre">materials/</span></code>)<a class="headerlink" href="#materials-materials" title="Link to this heading"></a></h3>
+<p>The <strong>constitutive laws</strong> that relate kinematics to stresses.</p>
+<ul class="simple">
+<li><p><strong>Role:</strong> Given a kinematic measure, the material module returns the strain energy density  or the Stress tensor . It supports hyperelasticity (Neo-Hookean, Ogden) and complex porous media.</p></li>
+</ul>
+</section>
+<section id="problems-problems">
+<h3>4. Problems (<code class="docutils literal notranslate"><span class="pre">problems/</span></code>)<a class="headerlink" href="#problems-problems" title="Link to this heading"></a></h3>
+<p>The <strong>orchestrator</strong> that brings everything together.</p>
+<ul class="simple">
+<li><p><strong>Role:</strong> This is the high-level class (e.g., <code class="docutils literal notranslate"><span class="pre">SolidMechanicsProblem</span></code>) that links the mesh, the kinematics, and the operators into a FEniCS <code class="docutils literal notranslate"><span class="pre">NonlinearVariationalProblem</span></code>.</p></li>
+</ul>
+</section>
+<section id="time-integrator-core">
+<h3>5. Time Integrator (<code class="docutils literal notranslate"><span class="pre">core/</span></code>)<a class="headerlink" href="#time-integrator-core" title="Link to this heading"></a></h3>
+<p>Manages the <strong>evolution of the system</strong> over time.</p>
+<ul class="simple">
+<li><p><strong>Role:</strong> It handles the incremental stepping, Newton-Raphson iterations, and updates of state variables. It ensures that quasi-static or dynamic trajectories are followed accurately and saved (IO) consistently.</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="project-structure">
+<h2>Project Structure<a class="headerlink" href="#project-structure" title="Link to this heading"></a></h2>
+<p>The library is currently undergoing a transition to a modern <code class="docutils literal notranslate"><span class="pre">src/</span></code> layout to improve maintainability and extensibility.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>.
+├── src/dolfin_mech/         # Core Library (New Structure)
+│   ├── core/                # Time integrators, IO (XDMF/VTU), and error tools
+│   ├── kinematics/          # Linear/Non-linear and Inverse kinematics
+│   ├── materials/           # Constitutive laws (Neo-Hookean, Ogden, Porous, etc.)
+│   ├── operators/           # Weak forms and FEM operators
+│   └── problems/            # High-level problem definitions (Elasticity, Poro, etc.)
+├── tests/                   # Extensive regression test suite with reference data
+├── docker/                  # Reproducible environments (standard and dev)
+├── docs/                    # Sphinx documentation sources
+├── LEGACY_resources/        # Legacy scripts and material formulations
+└── pyproject.toml           # Modern PEP 517 build configuration
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
-<p>A working installation of <a class="reference external" href="https://fenicsproject.org">FEniCS</a> (version 2019.1.0) is required to run <code class="docutils literal notranslate"><span class="pre">dolfin_mech</span></code>.
-To setup a system, the simplest is to use <a class="reference external" href="https://conda.io">conda</a>: first install <a class="reference external" href="https://docs.conda.io/projects/miniconda/en/latest">miniconda</a> (note that for Microsoft Windows machines you first need to install WSL, the <a class="reference external" href="https://learn.microsoft.com/en-us/windows/wsl/install">Windows Subsystem for Linux</a>, and then install miniconda for linux inside the WSL; for Apple MacOS machines with Apple Silicon CPUs, you still need to install the MacOS Intel x86_64 version of miniconda), and then install the necessary packages:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">-</span><span class="n">y</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="o">-</span><span class="n">n</span> <span class="n">dolfin_mech</span> <span class="n">fenics</span><span class="o">=</span><span class="mf">2019.1.0</span> <span class="n">matplotlib</span><span class="o">=</span><span class="mf">3.5</span> <span class="n">meshio</span><span class="o">=</span><span class="mf">5.3</span> <span class="n">mpi4py</span><span class="o">=</span><span class="mf">3.1.3</span> <span class="n">numpy</span><span class="o">=</span><span class="mf">1.23</span> <span class="n">pandas</span><span class="o">=</span><span class="mf">1.3</span> <span class="n">pip</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.10</span> <span class="n">vtk</span><span class="o">=</span><span class="mf">9.2</span>
-<span class="n">conda</span> <span class="n">activate</span> <span class="n">dolfin_mech</span>
+<section id="option-1-conda-environment">
+<h3>Option 1: Conda Environment<a class="headerlink" href="#option-1-conda-environment" title="Link to this heading"></a></h3>
+<p>Since FEniCS <code class="docutils literal notranslate"><span class="pre">2019.1.0</span></code> requires specific dependency versions, we recommend creating a dedicated environment:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-y<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>-n<span class="w"> </span>dolfin_mech<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nv">fenics</span><span class="o">=</span><span class="m">2019</span>.1.0<span class="w"> </span><span class="nv">matplotlib</span><span class="o">=</span><span class="m">3</span>.5<span class="w"> </span><span class="nv">meshio</span><span class="o">=</span><span class="m">5</span>.3<span class="w"> </span><span class="nv">mpi4py</span><span class="o">=</span><span class="m">3</span>.1.3<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nv">numpy</span><span class="o">=</span><span class="m">1</span>.23<span class="w"> </span><span class="nv">pandas</span><span class="o">=</span><span class="m">1</span>.3<span class="w"> </span>pip<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.10<span class="w"> </span><span class="nv">vtk</span><span class="o">=</span><span class="m">9</span>.2
+conda<span class="w"> </span>activate<span class="w"> </span>dolfin_mech
 </pre></div>
 </div>
-<p>Now, if you only need to use the library, you can install it with:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">dolfin_mech</span>
+</section>
+<section id="option-2-pip-installation">
+<h3>Option 2: Pip Installation<a class="headerlink" href="#option-2-pip-installation" title="Link to this heading"></a></h3>
+<p>For standard usage:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>dolfin-mech
 </pre></div>
 </div>
-<p>But if you need to develop within the library, you need to install an editable version of the sources:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">mgenet</span><span class="o">/</span><span class="n">dolfin_mech</span><span class="o">.</span><span class="n">git</span>
-<span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="n">dolfin_mech</span><span class="o">/.</span>
+<p>If you need to work with a specific version from github you can (for example changing <code class="docutils literal notranslate"><span class="pre">&#64;{branch_name}</span></code> to <code class="docutils literal notranslate"><span class="pre">&#64;devel</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="s2">&quot;git+https://github.com/mgenet/dolfin_mech.git@</span><span class="si">{branch_name}</span><span class="s2">&quot;</span>
 </pre></div>
 </div>
+<p>For development (editable mode with testing/doc tools), adding the <code class="docutils literal notranslate"><span class="pre">{branch_name}</span></code> you wish to work with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/mgenet/dolfin_mech.git@<span class="o">{</span>branch_name<span class="o">}</span>
+<span class="nb">cd</span><span class="w"> </span>dolfin_mech
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.<span class="o">[</span>dev,docs<span class="o">]</span>
+</pre></div>
+</div>
+</section>
+<section id="option-3-docker">
+<h3>Option 3: Docker<a class="headerlink" href="#option-3-docker" title="Link to this heading"></a></h3>
+<p>If you prefer containerized execution, use the provided Dockerfiles:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>dolfin_mech:latest<span class="w"> </span>-f<span class="w"> </span>docker/dolfin_mech/Dockerfile<span class="w"> </span>.
+</pre></div>
+</div>
+<p><strong>Run the container:</strong>
+Assuming the following folder organization:</p>
+<div class="highlight-terminal notranslate"><div class="highlight"><pre><span></span>project
+├── outputs
+└── source
+</pre></div>
+</div>
+<p>You can run the project image by mounting the <code class="docutils literal notranslate"><span class="pre">source</span></code> and the <code class="docutils literal notranslate"><span class="pre">outputs</span></code> as</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-ti<span class="w"> </span>--rm<span class="w"> </span>--mount<span class="w"> </span><span class="nv">type</span><span class="o">=</span>bind,src<span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/source,dst<span class="o">=</span>/hydrogels/source<span class="w"> </span>--mount<span class="w"> </span><span class="nv">type</span><span class="o">=</span>bind,src<span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/outputs,dst<span class="o">=</span>/hydrogels/outputs<span class="w"> </span>dolfin:v2019.2.0.dev0
+</pre></div>
+</div>
+</section>
+</section>
+<section id="running-a-simulation">
+<h2>Running a Simulation<a class="headerlink" href="#running-a-simulation" title="Link to this heading"></a></h2>
+<p>To run the a file:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Inside the container or environment</span>
+python3<span class="w"> </span>file.py
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="features">
+<h2>Features<a class="headerlink" href="#features" title="Link to this heading"></a></h2>
+<section id="constitutive-modeling">
+<h3>1. Constitutive Modeling<a class="headerlink" href="#constitutive-modeling" title="Link to this heading"></a></h3>
+<p>Supports a wide range of material behaviors:</p>
+<ul class="simple">
+<li><p><strong>Hyperelasticity:</strong> Neo-Hookean, Mooney-Rivlin, Ogden, Ciarlet-Geymonat.</p></li>
+<li><p><strong>Biomechanics-specific:</strong> Lung-specific  and  formulations.</p></li>
+<li><p><strong>Poromechanics:</strong> Coupled fluid-solid interactions and micro-poro-mechanical models.</p></li>
+</ul>
+</section>
+<section id="advanced-solvers-operators">
+<h3>2. Advanced Solvers &amp; Operators<a class="headerlink" href="#advanced-solvers-operators" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Inverse Problems:</strong> Solve for stress-free configurations or identify parameters.</p></li>
+<li><p><strong>Homogenization:</strong> Tools for RVE analysis and macroscopic property estimation.</p></li>
+<li><p><strong>Loading Operators:</strong> Surface tension, pressure-balancing gravity, and volume forces.</p></li>
+</ul>
+</section>
+<section id="verification-testing">
+<h3>3. Verification &amp; Testing<a class="headerlink" href="#verification-testing" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">dolfin_mech</span></code> includes a robust testing framework that compares simulation results against analytical benchmarks (e.g., Rivlin Cube) using <code class="docutils literal notranslate"><span class="pre">.dat</span></code> reference files.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Link to this heading"></a></h2>
+<p>The documentation is built via Sphinx. To generate the HTML docs locally (remember not to push them online):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sphinx-build<span class="w"> </span>-d<span class="w"> </span>html<span class="w"> </span>docs/src/<span class="w"> </span>../docs/build_docs/
+</pre></div>
+</div>
+</section>
+<section id="key-publications">
+<h2>Key Publications<a class="headerlink" href="#key-publications" title="Link to this heading"></a></h2>
+<p>This framework has been validated and utilized in numerous peer-reviewed studies across biomechanics and materials science:</p>
+<sub>
+* [[Genet (2019). A relaxed growth modeling framework for controlling growth-induced residual stresses. Clinical Biomechanics.](https://doi.org/10.1016/j.clinbiomech.2019.08.015)]
+* [[Álvarez-Barrientos, Hurtado & Genet (2021). Pressure-driven micro-poro-mechanics: A variational framework for modeling the response of porous materials. International Journal of Engineering Science.](https://doi.org/10.1016/j.ijengsci.2021.103586)]
+* [[Patte, Genet & Chapelle (2022). A quasi-static poromechanical model of the lungs. Biomechanics and Modeling in Mechanobiology.](https://doi.org/10.1007/s10237-021-01547-0)]
+* [[Patte, Brillet, Fetita, Gille, Bernaudin, Nunes, Chapelle & Genet (2022). Estimation of regional pulmonary compliance in idiopathic pulmonary fibrosis based on personalized lung poromechanical modeling. Journal of Biomechanical Engineering.](https://doi.org/10.1115/1.4054106)]
+* [[Tueni, Allain & Genet (2023). On the structural origin of the anisotropy in the myocardium: Multiscale modeling and analysis. Journal of the Mechanical Behavior of Biomedical Materials.](https://doi.org/10.1016/j.jmbbm.2022.105600)]
+* [[Laville, Fetita, Gille, Brillet, Nunes, Bernaudin & Genet (2023). Comparison of optimization parametrizations for regional lung compliance estimation using personalized pulmonary poromechanical modeling. Biomechanics and Modeling in Mechanobiology.](https://doi.org/10.1007/s10237-023-01691-9)]
+* [[Peyraut & Genet (2024). A model of mechanical loading of the lungs including gravity and a balancing heterogeneous pleural pressure. Biomechanics and Modeling in Mechanobiology.](https://doi.org/10.1007/s10237-024-01876-w)]
+* [[Peyraut & Genet (2025). Finite strain formulation of the discrete equilibrium gap principle: application to direct parameter estimation from large full-fields measurements. Comptes Rendus Mécanique.](https://doi.org/10.5802/crmeca.279)]
+* [[Manoochehrtayebi, Bel-Brunon & Genet (2025). Finite strain micro-poro-mechanics: Formulation and compared analysis with macro-poro-mechanics. International Journal of Solids and Structures.](https://doi.org/10.1016/j.ijsolstr.2025.113354)]
+* [[Peyraut & Genet (2025). Inverse Uncertainty Quantification for Personalized Biomechanical Modeling: Application to Pulmonary Poromechanical Digital Twins. Journal of Biomechanical Engineering.](https://doi.org/10.1115/1.4068578)]
+* [[Manoochehrtayebi, Genet & Bel-Brunon (2025). Micro-poro-mechanical modeling of lung parenchyma: Theoretical modeling and parameters identification. Journal of Biomechanical Engineering.](https://doi.org/10.1115/1.4070036)]
+</sub>
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="api-reference">
