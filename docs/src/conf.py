@@ -82,7 +82,7 @@ napoleon_use_rtype = True
 autoapi_type = "python"
 autoapi_dirs = [
 	str(src_path / "dolfin_mech"),
-	str(project_root / "Tests")
+	# str(project_root / "Tests")
 ]
 autoapi_ignore = [
 	"*LEGACY_resources/*"
