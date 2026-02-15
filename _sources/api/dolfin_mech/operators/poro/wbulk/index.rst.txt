@@ -1,0 +1,75 @@
+dolfin_mech.operators.poro.wbulk
+================================
+
+.. py:module:: dolfin_mech.operators.poro.wbulk
+
+.. autoapi-nested-parse::
+
+   Defines the Wbulk and InverseWbulk operators.
+
+   Model the bulk energy
+   contributions of porous lung tissue by coupling displacement fields with
+   solid volume fraction evolution in both forward and inverse finite strain
+   frameworks.
+
+
+
+
+
+Module Contents
+---------------
+
+.. py:class:: Wbulk(kinematics, U_test, Phis0, Phis, unknown_porosity_test, material_parameters, material_scaling, measure)
+
+   Bases: :py:obj:`dolfin_mech.operators.operator.Operator`
+
+
+   Operator representing the bulk energy contribution in a finite strain poromechanical framework.
+
+   This operator couples the deformation of a porous solid (specifically lung
+   elastic material) with the evolution of the solid volume fraction :math:`\Phi_s`.
+   It assembles the residual contribution arising from the derivative of the
+   bulk energy with respect to both displacement and porosity.
+
+   The residual includes two main terms:
+   1. The mechanical stress contribution derived from the bulk potential.
+   2. The porosity-coupling term for the mixed formulation.
+
+   :ivar kinematics: Finite strain kinematics (F, J, C_inv, E).
+   :vartype kinematics: :py:class:`Kinematics`
+   :ivar solid_material: The underlying lung material model.
+   :vartype solid_material: :py:class:`WbulkLungElasticMaterial`
+   :ivar material: The porous wrapper handling scaling.
+   :vartype material: :py:class:`PorousElasticMaterial`
+   :ivar measure: Integration measure (typically ``dx``).
+   :vartype measure: :py:class:`dolfin.Measure`
+   :ivar res_form: The resulting residual variational form.
+
+   :vartype res_form: :py:class:`UFL form`
+
+
+.. py:class:: InverseWbulk(kinematics, u_test, phis, phis0, unknown_porosity_test, material_parameters, material_scaling, measure)
+
+   Bases: :py:obj:`dolfin_mech.operators.operator.Operator`
+
+
+   Operator representing the bulk energy contribution for inverse or linearized poromechanical problems.
+
+   This operator is used when the volume fractions :math:`\phi_s` and :math:`\phi_{s0}`
+   are defined in a way that includes the Jacobian :math:`J` (i.e., mapping
+   quantities between reference and spatial configurations).
+
+   The residual contribution is:
+
+   .. math::
+       \delta \Pi = \int_{\Omega} \frac{\partial W_{bulk}}{\partial \Phi_s} \text{tr}(\delta \mathbf{\epsilon}) \, d\Omega + \int_{\Omega} \frac{\partial W_{bulk}}{\partial \Phi_s} \delta \phi \, d\Omega
+
+   :ivar kinematics: Kinematics object.
+   :vartype kinematics: :py:class:`Kinematics`
+   :ivar measure: Integration measure.
+   :vartype measure: :py:class:`dolfin.Measure`
+   :ivar res_form: The resulting residual variational form.
+
+   :vartype res_form: :py:class:`UFL form`
+
+

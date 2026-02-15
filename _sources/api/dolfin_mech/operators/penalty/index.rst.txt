@@ -1,0 +1,16 @@
+Penalty
+=======
+
+.. contents::
+   :local:
+
+.. toctree::
+   :maxdepth: 3
+   :titlesonly:
+
+   Directionaldisplacement <directionaldisplacement/index>
+   Lagrangemultipliercomponent <lagrangemultipliercomponent/index>
+   Macroscopicstetchsymmetry <macroscopicstetchsymmetry/index>
+   Macroscopicstresscomponent <macroscopicstresscomponent/index>
+   Macroscopicstretchcomponent <macroscopicstretchcomponent/index>
+   Normaldisplacement <normaldisplacement/index>

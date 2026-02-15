@@ -1,0 +1,61 @@
+dolfin_mech.operators.penalty.normaldisplacement
+================================================
+
+.. py:module:: dolfin_mech.operators.penalty.normaldisplacement
+
+.. autoapi-nested-parse::
+
+   Defines the NormalDisplacement class.
+
+   Implements a
+   variational penalty to weakly enforce zero-displacement constraints in a
+   normal direction, facilitating sliding or symmetry boundary conditions
+   without hard Dirichlet constraints.
+
+
+
+
+
+Module Contents
+---------------
+
+.. py:class:: NormalDisplacement(U, U_test, N, measure, pen_val=None, pen_ini=None, pen_fin=None)
+
+   Bases: :py:obj:`dolfin_mech.operators.operator.Operator`
+
+
+   Operator enforcing a penalty on the displacement component normal to a given vector (typically the surface normal).
+
+   This operator assembles a penalty potential that discourages movement
+   along the direction defined by :math:`\mathbf{N}`. It is commonly used
+   to weakly enforce sliding boundary conditions (symmetry conditions)
+   on curved or flat boundaries.
+
+   The penalty energy functional :math:`\Pi_{pen}` is defined as:
+
+   .. math::
+       \Pi_{pen} = \int_{\Gamma} \frac{k_{pen}}{2} (\mathbf{u} \cdot \mathbf{N})^2 \, d\Gamma
+
+   The resulting residual form is the directional derivative of this potential:
+
+   .. math::
+       \delta \Pi_{pen} = \int_{\Gamma} k_{pen} (\mathbf{u} \cdot \mathbf{N}) (\delta \mathbf{u} \cdot \mathbf{N}) \, d\Gamma
+
+   :ivar measure: The integration measure (typically ``ds`` for boundaries).
+   :vartype measure: :py:class:`dolfin.Measure`
+   :ivar tv_pen: Time-varying penalty stiffness :math:`k_{pen}`.
+   :vartype tv_pen: :py:class:`TimeVaryingConstant`
+   :ivar res_form: The resulting residual variational form.
+
+   :vartype res_form: :py:class:`UFL form`
+
+
+   .. py:method:: set_value_at_t_step(t_step)
+
+      Updates the penalty stiffness coefficient for the current time step.
+
+      :param t_step: Current normalized time step (0.0 to 1.0).
+      :type t_step: float
+
+
+

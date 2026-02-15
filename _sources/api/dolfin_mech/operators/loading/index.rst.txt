@@ -10,3 +10,7 @@ Loading
 
    Pressurebalancinggravity <pressurebalancinggravity/index>
    Surfaceforce <surfaceforce/index>
+   Surfacepressure <surfacepressure/index>
+   Surfacepressuregradient <surfacepressuregradient/index>
+   Surfacetension <surfacetension/index>
+   Volumeforce <volumeforce/index>

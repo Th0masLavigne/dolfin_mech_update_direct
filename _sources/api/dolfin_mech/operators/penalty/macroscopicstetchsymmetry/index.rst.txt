@@ -1,0 +1,62 @@
+dolfin_mech.operators.penalty.macroscopicstetchsymmetry
+=======================================================
+
+.. py:module:: dolfin_mech.operators.penalty.macroscopicstetchsymmetry
+
+.. autoapi-nested-parse::
+
+   Defines the MacroscopicStretchSymmetry class.
+
+   Weakly
+   enforces the symmetry of the macroscopic displacement gradient tensor using
+   a penalty method, effectively suppressing unconstrained macroscopic rotations
+   in multiscale homogenization.
+
+
+
+
+
+Module Contents
+---------------
+
+.. py:class:: MacroscopicStretchSymmetry(U_bar, sol, sol_test, measure, pen_val=None, pen_ini=None, pen_fin=None)
+
+   Bases: :py:obj:`dolfin_mech.operators.operator.Operator`
+
+
+   Operator enforcing the symmetry of the macroscopic displacement gradient tensor via a penalty method.
+
+   In homogenization theory, the macroscopic deformation gradient is often
+   decomposed into a stretch and a rotation. This operator penalizes the
+   skew-symmetric part of the macroscopic displacement gradient
+   :math:`\bar{\mathbf{U}}`, effectively weakly enforcing
+   :math:`\bar{\mathbf{U}} = \bar{\mathbf{U}}^T`.
+
+   The penalty potential :math:`\Pi` is defined as:
+
+   .. math::
+       \Pi = \int_{\Omega} \frac{k_{pen}}{2} \|\mathbf{\bar{U}}^T - \mathbf{\bar{U}}\|^2 \, d\Omega
+
+   The residual form is obtained by taking the first variation of this potential
+   with respect to the solution variables :math:`\mathbf{sol}`.
+
+
+
+   :ivar measure: Integration measure (typically ``dx``).
+   :vartype measure: :py:class:`dolfin.Measure`
+   :ivar tv_pen: Time-varying penalty stiffness :math:`k_{pen}`.
+   :vartype tv_pen: :py:class:`TimeVaryingConstant`
+   :ivar res_form: The resulting residual variational form.
+
+   :vartype res_form: :py:class:`UFL form`
+
+
+   .. py:method:: set_value_at_t_step(t_step)
+
+      Updates the penalty stiffness for the current time step.
+
+      :param t_step: Current normalized time (0.0 to 1.0).
+      :type t_step: float
+
+
+

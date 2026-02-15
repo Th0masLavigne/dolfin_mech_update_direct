@@ -1,0 +1,50 @@
+dolfin_mech.operators.mircoporo.deformedtotalvolume
+===================================================
+
+.. py:module:: dolfin_mech.operators.mircoporo.deformedtotalvolume
+
+.. autoapi-nested-parse::
+
+   Defines the DeformedTotalVolume class.
+
+   Enforces the kinematic
+   consistency between the total volume of a Representative Elementary Volume (REV)
+   and the macroscopic deformation gradient in multiscale homogenization problems.
+
+
+
+
+
+Module Contents
+---------------
+
+.. py:class:: DeformedTotalVolume(v, v_test, U_bar, V0, Vs0, measure)
+
+   Bases: :py:obj:`dolfin_mech.operators.operator.Operator`
+
+
+   Operator representing the total volume of a Representative Elementary Volume (REV) subjected to macroscopic deformation.
+
+   In computational homogenization, the total volume of a porous or heterogeneous
+   REV evolves according to the macroscopic deformation gradient :math:`\bar{\mathbf{F}}`.
+   This operator enforces the kinematic relationship between the current total
+   volume :math:`v` and the reference total volume :math:`V_0`.
+
+   The relationship is governed by the macroscopic Jacobian :math:`\bar{J}`:
+
+   .. math::
+       v = \bar{J} \cdot V_0
+
+   The residual form is normalized by the initial solid volume :math:`V_{s0}`
+   to maintain consistent scaling in multi-field porous media problems:
+
+   .. math::
+       \mathcal{R} = \int_{\Omega} \frac{(v - \bar{J} V_0)}{V_{s0}} \delta v \, d\Omega
+
+   :ivar measure: Integration measure (typically ``dx``).
+   :vartype measure: :py:class:`dolfin.Measure`
+   :ivar res_form: The resulting residual variational form.
+
+   :vartype res_form: :py:class:`UFL expression`
+
+

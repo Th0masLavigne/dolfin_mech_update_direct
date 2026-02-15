@@ -1,0 +1,57 @@
+dolfin_mech.operators.mircoporo.deformedsurfacearea
+===================================================
+
+.. py:module:: dolfin_mech.operators.mircoporo.deformedsurfacearea
+
+.. autoapi-nested-parse::
+
+   Defines the DeformedSurfaceArea class.
+
+   Tracks the evolution of
+   boundary surface area under large deformations using Nanson's formula,
+   enabling the simulation of area-dependent phenomena such as surface tension.
+
+
+
+
+
+Module Contents
+---------------
+
+.. py:class:: DeformedSurfaceArea(S_area, S_area_test, kinematics, N, measure)
+
+   Bases: :py:obj:`dolfin_mech.operators.operator.Operator`
+
+
+   Operator representing the evolution of surface area on a boundary under large deformations.
+
+   This operator facilitates the tracking of the current surface area :math:`S`
+   relative to its initial area :math:`S_0`. It is particularly useful for
+   problems involving surface-dependent phenomena like surface tension or
+   surfactant concentration in lung mechanics.
+
+   The change in area is governed by Nanson's formula, which relates the
+   reference normal :math:`\mathbf{N}` and reference area element :math:`dS`
+   to the deformed normal :math:`\mathbf{n}` and deformed area element :math:`ds`:
+
+   .. math::
+       \mathbf{n} \, ds = J \mathbf{F}^{-T} \mathbf{N} \, dS
+
+   The scalar ratio of area change :math:`T \cdot J` (where :math:`T = \|\mathbf{F}^{-T} \mathbf{N}\|`)
+   is enforced in weak form:
+
+   .. math::
+       \mathcal{R} = \int_{\Gamma} \left( \frac{S}{S_0} - J \|\mathbf{F}^{-T} \mathbf{N}\| \right) \delta S \, d\Gamma
+
+   :ivar measure: Boundary measure (typically ``ds``).
+   :vartype measure: :py:class:`dolfin.Measure`
+   :ivar kinematics: Kinematic variables providing the deformation
+                     gradient :math:`\mathbf{F}` and Jacobian :math:`J`.
+   :vartype kinematics: :py:class:`Kinematics`
+   :ivar N: The unit normal vector in the reference configuration.
+   :vartype N: :py:class:`dolfin.Constant`
+   :ivar res_form: The resulting residual variational form.
+
+   :vartype res_form: :py:class:`UFL expression`
+
+

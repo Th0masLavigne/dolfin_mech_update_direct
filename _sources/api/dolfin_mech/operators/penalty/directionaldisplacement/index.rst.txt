@@ -1,0 +1,66 @@
+dolfin_mech.operators.penalty.directionaldisplacement
+=====================================================
+
+.. py:module:: dolfin_mech.operators.penalty.directionaldisplacement
+
+.. autoapi-nested-parse::
+
+   Defines the DirectionalDisplacement class.
+
+   Implements a
+   variational penalty term to weakly constrain or stabilize displacements along
+   a prescribed direction, facilitating rigid body motion suppression and
+   flexible Dirichlet-like boundary conditions.
+
+
+
+
+
+Module Contents
+---------------
+
+.. py:class:: DirectionalDisplacement(U, U_test, measure, N_val=None, N_ini=None, N_fin=None, pen_val=None, pen_ini=None, pen_fin=None)
+
+   Bases: :py:obj:`dolfin_mech.operators.operator.Operator`
+
+
+   Operator representing a directional displacement penalty term.
+
+   This operator assembles a penalty energy functional that penalizes displacement
+   along a specific direction :math:`\mathbf{N}`. It is typically used to
+   weakly enforce Dirichlet-like conditions or to stabilize a model against
+   rigid body translations in a specific orientation without using hard
+   constraints.
+
+   The penalty potential :math:`\Pi_{pen}` is defined as:
+
+   .. math::
+       \Pi_{pen} = \int_{\Omega} \frac{k_{pen}}{2} (\mathbf{u} \cdot \mathbf{N})^2 \, d\Omega
+
+   The resulting residual form is the first variation of this potential with
+   respect to the displacement :math:`\mathbf{u}`:
+
+   .. math::
+       \delta \Pi_{pen} = \int_{\Omega} k_{pen} (\mathbf{u} \cdot \mathbf{N}) (\delta \mathbf{u} \cdot \mathbf{N}) \, d\Omega
+
+   :ivar measure: The integration measure (typically ``dx`` or ``ds``).
+   :vartype measure: :py:class:`dolfin.Measure`
+   :ivar tv_N: Time-varying unit vector :math:`\mathbf{N}`
+               defining the penalty direction.
+   :vartype tv_N: :py:class:`TimeVaryingConstant`
+   :ivar tv_pen: Time-varying penalty stiffness :math:`k_{pen}`.
+   :vartype tv_pen: :py:class:`TimeVaryingConstant`
+   :ivar res_form: The resulting residual variational form.
+
+   :vartype res_form: :py:class:`UFL form`
+
+
+   .. py:method:: set_value_at_t_step(t_step)
+
+      Updates the penalty direction and stiffness for the current time step.
+
+      :param t_step: Current normalized time step (0.0 to 1.0).
+      :type t_step: float
+
+
+

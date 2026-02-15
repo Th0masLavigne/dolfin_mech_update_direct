@@ -1,0 +1,66 @@
+dolfin_mech.operators.penalty.macroscopicstresscomponent
+========================================================
+
+.. py:module:: dolfin_mech.operators.penalty.macroscopicstresscomponent
+
+.. autoapi-nested-parse::
+
+   Defines the MacroscopicStressComponent class.
+
+   Employs a penalty method
+   to weakly prescribe macroscopic stress components during multiscale
+   homogenization, allowing for stress-controlled Representative Elementary
+   Volume (REV) simulations.
+
+
+
+
+
+Module Contents
+---------------
+
+.. py:class:: MacroscopicStressComponent(sigma_bar, sigma_bar_test, sol, sol_test, material, comp_i, comp_j, measure, comp_val=None, comp_ini=None, comp_fin=None, pen_val=None, pen_ini=None, pen_fin=None)
+
+   Bases: :py:obj:`dolfin_mech.operators.operator.Operator`
+
+
+   Operator to enforce a component of the macroscopic stress tensor via a penalty method.
+
+   In a multiscale homogenization framework, this operator penalizes the
+   deviation of a specific microscopic stress component from a prescribed
+   macroscopic value. This is a "weak" alternative to using Lagrange
+   multipliers for stress-controlled Representative Elementary Volume (REV)
+   simulations.
+
+   The penalty potential :math:`\Pi` is defined as:
+
+   .. math::
+       \Pi = \int_{\Omega} \frac{k_{pen}}{2} (\sigma_{ij} - \bar{\sigma}_{ij})^2 d\Omega
+
+   The residual form is obtained by taking the derivative of this potential
+   with respect to the solution variables.
+
+
+
+   :ivar material: The material model providing the Cauchy stress tensor.
+   :vartype material: :py:class:`Material`
+   :ivar measure: The integration measure (typically ``dx``).
+   :vartype measure: :py:class:`dolfin.Measure`
+   :ivar tv_comp: Time-varying target stress component :math:`\bar{\sigma}_{ij}`.
+   :vartype tv_comp: :py:class:`TimeVaryingConstant`
+   :ivar tv_pen: Time-varying penalty stiffness :math:`k_{pen}`.
+   :vartype tv_pen: :py:class:`TimeVaryingConstant`
+   :ivar res_form: The resulting residual variational form.
+
+   :vartype res_form: :py:class:`UFL form`
+
+
+   .. py:method:: set_value_at_t_step(t_step)
+
+      Updates the target stress and penalty stiffness for the current time step.
+
+      :param t_step: Current normalized time (0.0 to 1.0).
+      :type t_step: float
+
+
+

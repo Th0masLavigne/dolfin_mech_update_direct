@@ -1,0 +1,92 @@
+dolfin_mech.operators.loading.surfacepressure
+=============================================
+
+.. py:module:: dolfin_mech.operators.loading.surfacepressure
+
+.. autoapi-nested-parse::
+
+   Defines the SurfacePressure operators.
+
+   Implement external pressure loads
+   for both finite strain (as a follower load that remains normal to the deformed
+   surface) and small strain frameworks.
+
+
+
+
+
+Module Contents
+---------------
+
+.. py:class:: SurfacePressure(U_test, kinematics, N, measure, P_val=None, P_ini=None, P_fin=None)
+
+   Bases: :py:obj:`dolfin_mech.operators.operator.Operator`
+
+
+   Operator representing an external surface pressure (follower load) in a large deformation (finite strain) framework.
+
+   Unlike a simple traction, surface pressure is a "follower load," meaning
+   its direction remains normal to the deformed surface. This operator
+   uses Nanson's formula to pull back the spatial pressure contribution to
+   the reference configuration.
+
+   The residual contribution is:
+
+   .. math::
+       \delta \Pi_{ext} = - \int_{\Gamma_0} -P \mathbf{N} \cdot \mathbf{F}^{-1} \cdot \delta \mathbf{u} \, J d\Gamma_0
+
+   where:
+       - :math:`P` is the scalar pressure value.
+       - :math:`\mathbf{N}` is the unit normal in the reference configuration.
+       - :math:`\mathbf{F}^{-1}` is the inverse of the deformation gradient.
+       - :math:`J` is the determinant of the deformation gradient.
+
+   :ivar measure: Boundary measure (typically ``ds``).
+   :vartype measure: :py:class:`dolfin.Measure`
+   :ivar tv_P: Time-varying pressure value :math:`P`.
+   :vartype tv_P: :py:class:`TimeVaryingConstant`
+   :ivar res_form: The resulting residual variational form.
+
+   :vartype res_form: :py:class:`UFL form`
+
+
+   .. py:method:: set_value_at_t_step(t_step)
+
+      Updates the pressure value for the current time step.
+
+      :param t_step: Current normalized time step (0.0 to 1.0).
+      :type t_step: float
+
+
+
+.. py:class:: SurfacePressure0(U_test, N, measure, P_val=None, P_ini=None, P_fin=None)
+
+   Bases: :py:obj:`dolfin_mech.operators.operator.Operator`
+
+
+   Operator representing an external surface pressure in a  small strain (linearized) framework.
+
+   In the small strain assumption, the geometry is assumed to be undeformed.
+   The pressure acts in the direction of the initial normal :math:`\mathbf{N}`,
+   and no follower-load effects are considered.
+
+   The residual contribution is:
+
+   .. math::
+       \delta \Pi_{ext} = - \int_{\Gamma} -P \mathbf{N} \cdot \delta \mathbf{u} \, d\Gamma
+
+   :ivar measure: Boundary measure (typically ``ds``).
+   :vartype measure: :py:class:`dolfin.Measure`
+   :ivar tv_P: Time-varying pressure value :math:`P`.
+   :vartype tv_P: :py:class:`TimeVaryingConstant`
+   :ivar res_form: The resulting residual variational form.
+
+   :vartype res_form: :py:class:`UFL form`
+
+
+   .. py:method:: set_value_at_t_step(t_step)
+
+      Updates the pressure value for the current time step.
+
+
+

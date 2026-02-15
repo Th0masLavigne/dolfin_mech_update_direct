@@ -1,0 +1,84 @@
+dolfin_mech.operators.loading.surfacetension
+============================================
+
+.. py:module:: dolfin_mech.operators.loading.surfacetension
+
+.. autoapi-nested-parse::
+
+   Defines the SurfaceTension operators.
+
+   Implement the virtual work of
+   surface-bound tension forces for finite strain (including area-dependent
+   surfactant modeling) and small strain mechanical frameworks.
+
+
+
+
+
+Module Contents
+---------------
+
+.. py:class:: SurfaceTension(kinematics, N, measure, U_test, tension_params={}, gamma_val=None, gamma_ini=None, gamma_fin=None)
+
+   Bases: :py:obj:`dolfin_mech.operators.operator.Operator`
+
+
+   Operator representing surface tension effects in a finite strain (large deformation) framework.
+
+   This operator assembles the virtual work done by surface tension on a boundary.
+   Surface tension acts as a membrane stress within the tangent plane of the deformed
+   surface. It supports a constant tension coefficient or a surface-area-dependent
+   tension (e.g., to model surfactant effects in lung alveoli).
+
+   The virtual work of surface tension is given by:
+
+   .. math::
+       \delta \Pi_{surf} = \int_{\Gamma} \gamma \mathbf{P} : \nabla_s \delta \mathbf{u} \, d\Gamma
+
+   where:
+       - :math:`\gamma` is the surface tension coefficient.
+       - :math:`\mathbf{P} = \mathbf{I} - \mathbf{n} \otimes \mathbf{n}` is the
+         projector onto the tangent plane of the deformed surface.
+       - :math:`\mathbf{n}` is the current unit normal vector.
+       - :math:`d\Gamma = J \|\mathbf{F}^{-T} \mathbf{N}\| d\Gamma_0` is the deformed
+         surface element (Nanson's formula).
+
+   :ivar measure: Boundary measure (typically ``ds``).
+   :vartype measure: :py:class:`dolfin.Measure`
+   :ivar tv_gamma: Time-varying surface tension coefficient :math:`\gamma`.
+   :vartype tv_gamma: :py:class:`TimeVaryingConstant`
+   :ivar kinematics: Kinematics object for deformation variables.
+   :vartype kinematics: :py:class:`Kinematics`
+   :ivar res_form: The resulting residual variational form.
+
+   :vartype res_form: :py:class:`UFL form`
+
+
+   .. py:method:: set_value_at_t_step(t_step)
+
+      Updates the surface tension coefficient for the current time step.
+
+
+
+.. py:class:: SurfaceTension0(u, u_test, kinematics, N, measure, gamma_val=None, gamma_ini=None, gamma_fin=None)
+
+   Bases: :py:obj:`dolfin_mech.operators.operator.Operator`
+
+
+   Operator representing surface tension effects in a linearized (small strain) framework.
+
+   In small strain theory, the virtual work is derived by considering the
+   variation of the surface area approximated by the trace of the strain
+   within the tangent plane.
+
+   :ivar res_form: The resulting residual variational form.
+
+   :vartype res_form: :py:class:`UFL form`
+
+
+   .. py:method:: set_value_at_t_step(t_step)
+
+      Updates the surface tension coefficient for the current time step.
+
+
+

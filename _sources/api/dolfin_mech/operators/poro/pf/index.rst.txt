@@ -1,0 +1,62 @@
+dolfin_mech.operators.poro.pf
+=============================
+
+.. py:module:: dolfin_mech.operators.poro.pf
+
+.. autoapi-nested-parse::
+
+   Defines the Pf class.
+
+   Implements the energetic contribution
+   of fluid pressure to the porosity evolution equation within a coupled
+   poromechanical variational framework.
+
+
+
+
+
+Module Contents
+---------------
+
+.. py:class:: Pf(unknown_porosity_test, measure, pf_val=None, pf_ini=None, pf_fin=None)
+
+   Bases: :py:obj:`dolfin_mech.operators.operator.Operator`
+
+
+   Operator representing the fluid pressure contribution in a poromechanical formulation.
+
+   This operator assembles the residual term related to the fluid pressure
+   :math:`p_f` acting on the porosity field. In mixed formulations for
+   poroelasticity or poroplasticity, this term often appears in the mass
+   conservation or the porosity evolution equations.
+
+   The residual contribution is defined as:
+
+   .. math::
+       \mathcal{R} = \int_{\Omega} p_f \cdot \delta \phi \, d\Omega
+
+   where:
+       - :math:`p_f` is the fluid pressure (prescribed or time-varying).
+       - :math:`\delta \phi` is the test function associated with the
+         porosity unknown.
+
+   :ivar measure: Integration measure (typically ``dx``).
+   :vartype measure: :py:class:`dolfin.Measure`
+   :ivar tv_pf: Time-varying fluid pressure :math:`p_f`.
+   :vartype tv_pf: :py:class:`TimeVaryingConstant`
+   :ivar pf: The current value of the fluid pressure.
+   :vartype pf: :py:class:`dolfin.Constant`
+   :ivar res_form: The resulting residual variational form.
+
+   :vartype res_form: :py:class:`UFL form`
+
+
+   .. py:method:: set_value_at_t_step(t_step)
+
+      Updates the time-varying fluid pressure for the current time step.
+
+      :param t_step: Current normalized time step (0.0 to 1.0).
+      :type t_step: float
+
+
+

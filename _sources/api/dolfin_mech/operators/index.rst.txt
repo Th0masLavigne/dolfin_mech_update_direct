@@ -17,4 +17,7 @@ Operators
    Linearizedhydrostaticpressure <linearizedhydrostaticpressure/index>
    Linearizedincompressibility <linearizedincompressibility/index>
    Loading <loading/index>
+   Mircoporo <mircoporo/index>
    Operator <operator/index>
+   Penalty <penalty/index>
+   Poro <poro/index>

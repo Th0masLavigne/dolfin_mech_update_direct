@@ -1,0 +1,52 @@
+dolfin_mech.operators.mircoporo.deformedsolidvolume
+===================================================
+
+.. py:module:: dolfin_mech.operators.mircoporo.deformedsolidvolume
+
+.. autoapi-nested-parse::
+
+   Defines the DeformedSolidVolume class.
+
+   Enforces the kinematic
+   relationship between the initial and current solid volume through the
+   Jacobian of the deformation gradient in a variational framework.
+
+
+
+
+
+Module Contents
+---------------
+
+.. py:class:: DeformedSolidVolume(vs, vs_test, J, Vs0, measure)
+
+   Bases: :py:obj:`dolfin_mech.operators.operator.Operator`
+
+
+   Operator representing the evolution of the solid phase volume in a deforming continuum.
+
+   In the context of nonlinear continuum mechanics and porous media, the
+   local volume ratio of the solid phase is governed by the Jacobian of the
+   transformation. This operator enforces the weak relationship between the
+   actual solid volume :math:`v_s`, the initial solid volume :math:`V_{s0}`,
+   and the Jacobian :math:`J`.
+
+   The governing equation in strong form is:
+
+   .. math::
+       v_s = J \cdot V_{s0}
+
+   Which is implemented here in weak form as:
+
+   .. math::
+       \mathcal{R} = \int_{\Omega} \left( \frac{v_s}{V_{s0}} - J \right) \delta v_s \, d\Omega
+
+   :ivar Vs0: The reference (initial) solid volume.
+   :vartype Vs0: :py:class:`dolfin.Constant`
+   :ivar measure: Integration measure (typically ``dx``).
+   :vartype measure: :py:class:`dolfin.Measure`
+   :ivar res_form: The resulting residual variational form.
+
+   :vartype res_form: :py:class:`UFL expression`
+
+

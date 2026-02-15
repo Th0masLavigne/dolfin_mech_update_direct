@@ -1,0 +1,91 @@
+dolfin_mech.operators.loading.surfacepressuregradient
+=====================================================
+
+.. py:module:: dolfin_mech.operators.loading.surfacepressuregradient
+
+.. autoapi-nested-parse::
+
+   Defines the SurfacePressureGradient operators.
+
+   Implement external
+   pressure loads with linear spatial gradients (e.g., hydrostatic pressure)
+   for both finite strain follower-load and small strain frameworks.
+
+
+
+
+
+Module Contents
+---------------
+
+.. py:class:: SurfacePressureGradient(X, U, U_test, kinematics, N, measure, X0_val=None, X0_ini=None, X0_fin=None, N0_val=None, N0_ini=None, N0_fin=None, P0_val=None, P0_ini=None, P0_fin=None, DP_val=None, DP_ini=None, DP_fin=None)
+
+   Bases: :py:obj:`dolfin_mech.operators.operator.Operator`
+
+
+   Operator representing an external surface pressure with a spatial gradient in a large deformation (finite strain) framework.
+
+   This operator applies a pressure field :math:`P` that varies linearly along
+   a specified direction :math:`\mathbf{N}_0`. This is typically used to
+   model hydrostatic pressure (e.g., :math:`P = P_0 + \rho g z`).
+
+   The spatially varying pressure is defined as:
+
+   .. math::
+       P(\mathbf{x}) = P_0 + \Delta P (\mathbf{x} - \mathbf{X}_0) \cdot \mathbf{N}_0
+
+   where:
+       - :math:`P_0` is the reference pressure at point :math:`\mathbf{X}_0`.
+       - :math:`\Delta P` is the pressure gradient magnitude.
+       - :math:`\mathbf{N}_0` is the direction of the gradient.
+       - :math:`\mathbf{x}` is the current position (:math:`\mathbf{X} + \mathbf{u}`).
+
+   As a "follower load," the pressure direction remains normal to the deformed
+   surface using Nanson's formula.
+
+   :ivar tv_X0: Reference position :math:`\mathbf{X}_0`.
+   :vartype tv_X0: :py:class:`TimeVaryingConstant`
+   :ivar tv_N0: Gradient direction :math:`\mathbf{N}_0`.
+   :vartype tv_N0: :py:class:`TimeVaryingConstant`
+   :ivar tv_P0: Reference pressure :math:`P_0`.
+   :vartype tv_P0: :py:class:`TimeVaryingConstant`
+   :ivar tv_DP: Pressure gradient :math:`\Delta P`.
+   :vartype tv_DP: :py:class:`TimeVaryingConstant`
+   :ivar res_form: The resulting residual variational form.
+
+   :vartype res_form: :py:class:`UFL form`
+
+
+   .. py:method:: set_value_at_t_step(t_step)
+
+      Updates all time-varying constants for the gradient load.
+
+
+
+.. py:class:: SurfacePressureGradient0(x, U_test, N, measure, X0_val=None, X0_ini=None, X0_fin=None, N0_val=None, N0_ini=None, N0_fin=None, P0_val=None, P0_ini=None, P0_fin=None, DP_val=None, DP_ini=None, DP_fin=None)
+
+   Bases: :py:obj:`dolfin_mech.operators.operator.Operator`
+
+
+   Operator representing an external surface pressure with a spatial gradient in a small strain (linearized) framework.
+
+   Similar to :class:`SurfacePressureGradientLoadingOperator`, but formulated
+   under the assumption of undeformed geometry. The pressure acts along the
+   reference normal :math:`\mathbf{N}`.
+
+   The pressure is defined spatially as:
+
+   .. math::
+       P(\mathbf{x}) = P_0 + \Delta P (\mathbf{x} - \mathbf{X}_0) \cdot \mathbf{N}_0
+
+   :ivar res_form: The resulting residual variational form.
+
+   :vartype res_form: :py:class:`UFL form`
+
+
+   .. py:method:: set_value_at_t_step(t_step)
+
+      Updates all time-varying constants.
+
+
+

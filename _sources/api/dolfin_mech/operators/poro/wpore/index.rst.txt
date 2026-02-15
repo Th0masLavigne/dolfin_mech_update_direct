@@ -1,0 +1,76 @@
+dolfin_mech.operators.poro.wpore
+================================
+
+.. py:module:: dolfin_mech.operators.poro.wpore
+
+.. autoapi-nested-parse::
+
+   Defines the Wpore and InverseWpore operators.
+
+   Implement the variational
+   contribution of pore-level energy for porous lung tissue, coupling fluid
+   volume fraction changes with the overall poromechanical response in both
+   forward and inverse finite strain frameworks.
+
+
+
+
+
+Module Contents
+---------------
+
+.. py:class:: Wpore(kinematics, Phis0, Phis, unknown_porosity_test, material_parameters, material_scaling, measure)
+
+   Bases: :py:obj:`dolfin_mech.operators.operator.Operator`
+
+
+   Operator representing the pore-level energy contribution in a finite strain poromechanical framework.
+
+   This operator models the energy associated with the fluid-filled pores
+   (specifically for lung tissue) and its coupling with the solid volume
+   fraction :math:`\Phi_s`. It assembles the residual term derived from the
+   variation of the pore energy :math:`W_{pore}` with respect to the porosity.
+
+   The fluid volume fraction is calculated as:
+
+   .. math::
+       \Phi_f = J - \Phi_s
+
+   :ivar kinematics: Finite strain kinematics object.
+   :vartype kinematics: :py:class:`Kinematics`
+   :ivar solid_material: Underlying pore-level lung material.
+   :vartype solid_material: :py:class:`WporeLungElasticMaterial`
+   :ivar material: Porous wrapper handling material scaling.
+   :vartype material: :py:class:`PorousElasticMaterial`
+   :ivar measure: Integration measure (typically ``dx``).
+   :vartype measure: :py:class:`dolfin.Measure`
+   :ivar res_form: The resulting residual variational form.
+
+   :vartype res_form: :py:class:`UFL form`
+
+
+.. py:class:: InverseWpore(kinematics, phis, phis0, unknown_porosity_test, material_parameters, material_scaling, measure)
+
+   Bases: :py:obj:`dolfin_mech.operators.operator.Operator`
+
+
+   Operator representing the pore-level energy contribution for inverse or linearized poromechanical problems.
+
+   In this operator, the volume fractions :math:`\phi_s` and :math:`\phi_0`
+   are assumed to be spatial-like quantities that require scaling by the
+   Jacobian :math:`J` to recover reference volume fractions.
+
+   The fluid fraction is mapped as:
+
+   .. math::
+       \Phi_f = J \cdot (1 - \phi_s)
+
+   :ivar kinematics: Kinematics object.
+   :vartype kinematics: :py:class:`Kinematics`
+   :ivar measure: Integration measure.
+   :vartype measure: :py:class:`dolfin.Measure`
+   :ivar res_form: The resulting residual variational form.
+
+   :vartype res_form: :py:class:`UFL form`
+
+

@@ -1,0 +1,62 @@
+dolfin_mech.operators.mircoporo.deformedfluidvolume
+===================================================
+
+.. py:module:: dolfin_mech.operators.mircoporo.deformedfluidvolume
+
+.. autoapi-nested-parse::
+
+   Defines the DeformedFluidVolume class.
+
+   Computes the current volume of
+   an enclosed fluid region by integrating deformed boundary coordinates,
+   facilitating the coupling between internal fluid states and external solid
+   deformations.
+
+
+
+
+
+Module Contents
+---------------
+
+.. py:class:: DeformedFluidVolume(vf, vf_test, kinematics, N, dS, U_tot, X, measure)
+
+   Bases: :py:obj:`dolfin_mech.operators.operator.Operator`
+
+
+   Operator representing the volume of a fluid region enclosed by a deforming solid boundary.
+
+   In large deformation mechanics, the volume of an enclosed cavity can be
+   calculated using the surface integral of the spatial coordinates over the
+   deformed boundary. This operator implements this relation, which is
+   fundamental for problems involving pressurized cavities or fluid-structure
+   coupling.
+
+   The current volume :math:`v_f` is related to the deformed coordinates
+   :math:`\mathbf{x} = \mathbf{X} + \mathbf{U}_{tot}` via the divergence theorem:
+
+   .. math::
+       v_f = \frac{1}{dim} \int_{\Gamma} \mathbf{x} \cdot \mathbf{n} \, d\Gamma
+
+   By pulling this back to the reference configuration :math:`\Gamma_0`, we use
+   Nanson's formula (:math:`\mathbf{n} d\Gamma = J \mathbf{F}^{-T} \mathbf{N} d\Gamma_0`):
+
+   .. math::
+       v_f = \frac{1}{dim} \int_{\Gamma_0} (\mathbf{X} + \mathbf{U}_{tot}) \cdot (J \mathbf{F}^{-T} \mathbf{N}) \, d\Gamma_0
+
+   :ivar kinematics: Kinematic variables providing the deformation
+                     gradient :math:`\mathbf{F}` and Jacobian :math:`J`.
+   :vartype kinematics: :py:class:`Kinematics`
+   :ivar U_tot: The total displacement field.
+   :vartype U_tot: :py:class:`dolfin.Function`
+   :ivar X: The reference coordinates.
+   :vartype X: :py:class:`dolfin.SpatialCoordinate`
+   :ivar N: The unit normal vector in the reference configuration.
+   :vartype N: :py:class:`dolfin.Constant`
+   :ivar measure: Integration measure (typically ``dx``).
+   :vartype measure: :py:class:`dolfin.Measure`
+   :ivar res_form: The residual variational form.
+
+   :vartype res_form: :py:class:`UFL expression`
+
+

@@ -1,0 +1,80 @@
+dolfin_mech.operators.poro.wskel
+================================
+
+.. py:module:: dolfin_mech.operators.poro.wskel
+
+.. autoapi-nested-parse::
+
+   Defines the Wskel and InverseWskel operators.
+
+   Model the internal virtual
+   work of the solid lung skeleton (fiber network) by coupling structural
+   elasticity with porosity-based material scaling in both finite and small
+   strain frameworks.
+
+
+
+
+
+Module Contents
+---------------
+
+.. py:class:: Wskel(kinematics, U_test, material_parameters, material_scaling, Phis0, measure)
+
+   Bases: :py:obj:`dolfin_mech.operators.operator.Operator`
+
+
+   Operator representing the solid skeleton energy contribution in a finite strain poromechanical framework.
+
+   This operator models the mechanical response of the solid skeleton
+   (typically the elastin and collagen fiber network in lung tissue). It
+   assembles the internal virtual work using the Second Piola-Kirchhoff
+   stress tensor :math:`\mathbf{\Sigma}` provided by a scaled porous material
+   model.
+
+   The internal virtual work :math:`\delta \Pi_{int}` is:
+
+   .. math::
+       \delta \Pi_{int} = \int_{\Omega_0} \mathbf{\Sigma} : \delta \mathbf{E} \, d\Omega_0
+
+   where :math:`\mathbf{\Sigma}` is the Second Piola-Kirchhoff stress and
+   :math:`\delta \mathbf{E}` is the virtual Green-Lagrange strain.
+
+   :ivar kinematics: Finite strain kinematics object.
+   :vartype kinematics: :py:class:`Kinematics`
+   :ivar solid_material: Underlying lung skeleton material.
+   :vartype solid_material: :py:class:`WskelLungElasticMaterial`
+   :ivar material: Porous wrapper handling material scaling
+                   based on solid volume fraction.
+   :vartype material: :py:class:`PorousElasticMaterial`
+   :ivar measure: Integration measure (typically ``dx``).
+   :vartype measure: :py:class:`dolfin.Measure`
+   :ivar res_form: The resulting residual variational form.
+
+   :vartype res_form: :py:class:`UFL form`
+
+
+.. py:class:: InverseWskel(kinematics, u_test, material_parameters, material_scaling, phis0, measure)
+
+   Bases: :py:obj:`dolfin_mech.operators.operator.Operator`
+
+
+   Operator representing the solid skeleton energy contribution in a small strain or inverse poromechanical framework.
+
+   This version is used when the configuration is assumed to be linearized or
+   when volume fractions :math:`\phi_{s0}` are provided as spatial-like
+   quantities requiring Jacobian scaling. It uses the Cauchy stress
+   tensor :math:`\mathbf{\sigma}`.
+
+   The internal virtual work :math:`\delta \Pi_{int}` is:
+
+   .. math::
+       \delta \Pi_{int} = \int_{\Omega} \mathbf{\sigma} : \delta \mathbf{\epsilon} \, d\Omega
+
+   where :math:`\delta \mathbf{\epsilon}` is the virtual infinitesimal strain.
+
+   :ivar res_form: The resulting residual variational form.
+
+   :vartype res_form: :py:class:`UFL form`
+
+

@@ -1,0 +1,64 @@
+dolfin_mech.operators.penalty.macroscopicstretchcomponent
+=========================================================
+
+.. py:module:: dolfin_mech.operators.penalty.macroscopicstretchcomponent
+
+.. autoapi-nested-parse::
+
+   Defines the MacroscopicStretchComponent class.
+
+   Weakly
+   enforces prescribed macroscopic displacement gradient components using a
+   penalty method, facilitating strain-controlled homogenization of
+   Representative Elementary Volumes (REVs).
+
+
+
+
+
+Module Contents
+---------------
+
+.. py:class:: MacroscopicStretchComponent(U_bar, U_bar_test, i, j, measure, U_bar_ij_val=None, U_bar_ij_ini=None, U_bar_ij_fin=None, pen_val=None, pen_ini=None, pen_fin=None)
+
+   Bases: :py:obj:`dolfin_mech.operators.operator.Operator`
+
+
+   Operator enforcing a component of the macroscopic displacement gradient tensor via a penalty method.
+
+   In multiscale modeling, the macroscopic deformation is often described by
+   a displacement gradient tensor :math:`\bar{\mathbf{U}}`. This operator
+   penalizes the difference between a specific component :math:`\bar{U}_{ij}`
+   and a target value :math:`\bar{U}_{ij}^{target}`.
+
+   The penalty potential :math:`\Pi` is defined as:
+
+   .. math::
+       \Pi = \int_{\Omega} \frac{k_{pen}}{2} (\bar{U}_{ij} - \bar{U}_{ij}^{target})^2 \, d\Omega
+
+   The residual form is obtained by taking the first variation of this potential
+   with respect to the macroscopic component.
+
+
+
+   :ivar measure: Integration measure (typically ``dx``).
+   :vartype measure: :py:class:`dolfin.Measure`
+   :ivar tv_U_bar_ij: Time-varying target value for the
+                      macroscopic component :math:`\bar{U}_{ij}`.
+   :vartype tv_U_bar_ij: :py:class:`TimeVaryingConstant`
+   :ivar tv_pen: Time-varying penalty stiffness :math:`k_{pen}`.
+   :vartype tv_pen: :py:class:`TimeVaryingConstant`
+   :ivar res_form: The resulting residual variational form.
+
+   :vartype res_form: :py:class:`UFL form`
+
+
+   .. py:method:: set_value_at_t_step(t_step)
+
+      Updates the target stretch component and penalty stiffness for the current time step.
+
+      :param t_step: Current normalized time (0.0 to 1.0).
+      :type t_step: float
+
+
+
