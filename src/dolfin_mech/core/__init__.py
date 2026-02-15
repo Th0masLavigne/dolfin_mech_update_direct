@@ -9,6 +9,8 @@ from .nonlinearsolver import NonlinearSolver
 from .qoi import QOI
 from .step import Step
 from .subdomain_periodic import PeriodicSubDomain
+from .subdomain_pinpoint import PinpointSubDomain
+from .subsol import SubSol
 from .timeintegrator import TimeIntegrator
 from .timevaryingconstant import TimeVaryingConstant
 from .write_vtu_file import write_VTU_file
@@ -30,4 +32,6 @@ __all__ = [
 	"NonlinearSolver",
 	"Step",
 	"PeriodicSubDomain",
+	"PinpointSubDomain",
+	"SubSol",
 ]
