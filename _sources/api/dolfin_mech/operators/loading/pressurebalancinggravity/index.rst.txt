@@ -1,0 +1,106 @@
+dolfin_mech.operators.loading.pressurebalancinggravity
+======================================================
+
+.. py:module:: dolfin_mech.operators.loading.pressurebalancinggravity
+
+.. autoapi-nested-parse::
+
+   Defines the PressureBalancingGravity operators.
+
+   Simulate the mechanical
+   equilibrium of organs (like the lungs) by balancing internal gravitational
+   forces with surface pleural pressures through Lagrange multipliers in both
+   finite and small strain regimes.
+
+
+
+
+
+Module Contents
+---------------
+
+.. py:class:: PressureBalancingGravity(X, x0, x0_test, lmbda, lmbda_test, mu, mu_test, p, p_test, gamma, gamma_test, U, U_test, Phis, Phis0, rho_solid, kinematics, N, dS, dV, breathing_constant, P0_val=None, P0_ini=None, P0_fin=None, f_val=None, f_ini=None, f_fin=None)
+
+   Bases: :py:obj:`dolfin_mech.operators.operator.Operator`
+
+
+   Operator representing a gravity loading balanced by a surface pressure in a large deformation (finite strain) framework.
+
+   This operator is typically used in lung mechanics to model the pleural
+   pressure gradient that balances the weight of the lung parenchyma.
+   It includes a "breathing constant" to account for non-hydrostatic
+   effects observed in vivo.
+
+   The balanced pressure :math:`\tilde{P}` is defined as:
+
+   .. math::
+       \tilde{P} = P_0 + \rho_{solid} \mathbf{f} \cdot (\mathbf{x} - \mathbf{x}_0) - C_{breath} \rho_{solid} f_z (x_y - x_{0,y})^2
+
+   where :math:`\mathbf{x}_0` is a reference position (center of mass)
+   and :math:`C_{breath}` is the breathing constant.
+
+   :ivar tv_f: Time-varying gravity vector :math:`\mathbf{f}`.
+   :vartype tv_f: :py:class:`TimeVaryingConstant`
+   :ivar tv_P0: Time-varying reference pressure :math:`P_0`.
+   :vartype tv_P0: :py:class:`TimeVaryingConstant`
+   :ivar res_form: The resulting residual variational form including
+                   volume gravity, surface pressure work, and Lagrange multipliers
+                   for equilibrium constraints.
+
+
+
+   :vartype res_form: :py:class:`UFL form`
+
+   :param X: Reference coordinates.
+   :param x0: Reference position (Lagrange multiplier).
+   :param x0_test: Test function for reference position.
+   :param lmbda, mu, gamma: Lagrange multipliers for force/moment/pressure balancing.
+   :param p: Pressure field variable.
+   :param U: Displacement field.
+   :param Phis0: Initial solid volume fraction.
+   :param rho_solid: Material density of the solid phase.
+   :param kinematics: Kinematics object for finite strain.
+   :param N: Reference normal vector.
+   :param dS: Surface measure (e.g., pleural surface).
+   :param dV: Volume measure.
+   :param breathing_constant: Empirical constant for the pressure gradient.
+
+
+   .. py:method:: set_value_at_t_step(t_step)
+
+      Updates gravity and reference pressure for the current time step.
+
+      :param t_step: Current normalized time step (0.0 to 1.0).
+
+
+
+.. py:class:: PressureBalancingGravity0(x, x0, x0_test, u_test, lmbda, lmbda_test, mu, mu_test, p, p_test, gamma, gamma_test, rho_solid, phis, n, dS, dV, breathing_constant, P0_val=None, P0_ini=None, P0_fin=None, f_val=None, f_ini=None, f_fin=None)
+
+   Bases: :py:obj:`dolfin_mech.operators.operator.Operator`
+
+
+   Operator representing the pressure-balanced gravity loading in a small strain (linearized) framework.
+
+   Similar to :class:`PressureBalancingGravityLoadingOperator`, but formulated
+   without the finite strain Jacobian (:math:`J`) or deformation gradient
+   (:math:`\mathbf{F}`) pull-backs, assuming :math:`J \approx 1` and
+   :math:`\mathbf{n} \approx \mathbf{N}`.
+
+   :ivar res_form: Linearized residual form.
+
+
+   :vartype res_form: :py:class:`UFL form`
+
+   :param x: Spatial coordinates.
+   :param phis: Solid volume fraction.
+   :param n: Normal vector.
+   :param dS: Surface measure.
+   :param dV: Volume measure.
+
+
+   .. py:method:: set_value_at_t_step(t_step)
+
+      Updates gravity and reference pressure for the current time step.
+
+
+

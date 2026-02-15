@@ -1,0 +1,76 @@
+dolfin_mech.operators.hyperelasticity
+=====================================
+
+.. py:module:: dolfin_mech.operators.hyperelasticity
+
+.. autoapi-nested-parse::
+
+   Defines the HyperElasticity class.
+
+   Implements the internal virtual work
+   for nonlinear solid mechanics using three energy-consistent formulations:
+   energy-derivative, Second Piola-Kirchhoff, or First Piola-Kirchhoff.
+
+
+
+
+
+Module Contents
+---------------
+
+.. py:class:: HyperElasticity(U, U_test, kinematics, material_model, material_parameters, measure, formulation='PK1')
+
+   Bases: :py:obj:`dolfin_mech.operators.operator.Operator`
+
+
+   Operator representing the internal virtual work for hyperelastic materials.
+
+   This class assembles the residual variational form for a hyperelastic body.
+   It supports three different mathematical formulations for the internal
+   virtual work, all of which are equivalent but lead to different UFL
+   expressions.
+
+   The supported formulations are:
+
+   - **Total Potential Energy (ener):**
+       The residual is the first variation (Fréchet derivative) of the
+       strain energy density :math:`\Psi` with respect to the displacement :math:`\mathbf{u}`.
+
+       .. math::
+           \delta \Pi_{int} = \int_{\Omega_0} \frac{\partial \Psi}{\partial \mathbf{u}} \cdot \delta \mathbf{u} \, d\Omega_0
+
+   - **Second Piola-Kirchhoff (PK2):**
+       The work is defined using the Second Piola-Kirchhoff stress :math:`\mathbf{\Sigma}`
+       and the variation of the Green-Lagrange strain tensor :math:`\mathbf{E}`.
+
+       .. math::
+           \delta \Pi_{int} = \int_{\Omega_0} \mathbf{\Sigma} : \delta \mathbf{E} \, d\Omega_0
+
+   - **First Piola-Kirchhoff (PK1):**
+       The work is defined using the First Piola-Kirchhoff stress :math:`\mathbf{P}`
+       and the variation of the deformation gradient :math:`\mathbf{F}`.
+
+       .. math::
+           \delta \Pi_{int} = \int_{\Omega_0} \mathbf{P} : \delta \mathbf{F} \, d\Omega_0
+
+   :Parameters: * **U** -- The displacement trial function (or current solution).
+                * **U_test** -- The test function (virtual displacement).
+                * **kinematics** -- Kinematics object providing F and E.
+                * **material_model** -- Name of the material model (e.g., "NeoHookean").
+                * **material_parameters** -- Dictionary of material properties.
+                * **measure** -- Dolfin measure for domain integration.
+                * **formulation** -- Selection of the stress/strain pair ("PK1", "PK2", or "ener").
+
+   :raises ValueError: If an invalid formulation name is provided.
+
+   :ivar kinematics: Kinematic variables associated with the problem.
+   :vartype kinematics: :py:class:`Kinematics`
+   :ivar material: Material model instance created via the factory.
+   :vartype material: :py:class:`Material`
+   :ivar measure: Integration measure (typically ``dx``).
+   :vartype measure: :py:class:`dolfin.Measure`
+   :ivar res_form: The resulting residual variational form.
+
+   :vartype res_form: :py:class:`UFL form`
+
+

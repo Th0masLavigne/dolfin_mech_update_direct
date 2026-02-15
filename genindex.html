@@ -16,7 +16,7 @@
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=8e4cdb55"></script>
+      <script src="_static/documentation_options.js?v=f383509b"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -82,6 +82,14 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="api/dolfin_mech/operators/index.html">Operators</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="api/dolfin_mech/operators/constraint_macroscopicstresscomponent/index.html">Constraint Macroscopicstresscomponent</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/dolfin_mech/operators/hyperelasticity/index.html">Hyperelasticity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/dolfin_mech/operators/hyperhydrostaticpressure/index.html">Hyperhydrostaticpressure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/dolfin_mech/operators/hyperincompressibility/index.html">Hyperincompressibility</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/dolfin_mech/operators/inertia/index.html">Inertia</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/dolfin_mech/operators/linearizedelasticity/index.html">Linearizedelasticity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/dolfin_mech/operators/linearizedhydrostaticpressure/index.html">Linearizedhydrostaticpressure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/dolfin_mech/operators/linearizedincompressibility/index.html">Linearizedincompressibility</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/dolfin_mech/operators/loading/index.html">Loading</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/dolfin_mech/operators/operator/index.html">Operator</a></li>
 </ul>
 </li>
@@ -325,8 +333,6 @@
         <li><a href="api/dolfin_mech/kinematics/linearizedkinematics/index.html#module-dolfin_mech.kinematics.linearizedkinematics">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     dolfin_mech.materials.elastic.elastic
 
@@ -362,6 +368,8 @@
         <li><a href="api/dolfin_mech/materials/elastic/kirchhoff/index.html#module-dolfin_mech.materials.elastic.kirchhoff">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     dolfin_mech.materials.elastic.lung_wbulk
 
@@ -454,6 +462,69 @@
 </li>
       </ul></li>
       <li>
+    dolfin_mech.operators.hyperelasticity
+
+      <ul>
+        <li><a href="api/dolfin_mech/operators/hyperelasticity/index.html#module-dolfin_mech.operators.hyperelasticity">module</a>
+</li>
+      </ul></li>
+      <li>
+    dolfin_mech.operators.hyperhydrostaticpressure
+
+      <ul>
+        <li><a href="api/dolfin_mech/operators/hyperhydrostaticpressure/index.html#module-dolfin_mech.operators.hyperhydrostaticpressure">module</a>
+</li>
+      </ul></li>
+      <li>
+    dolfin_mech.operators.hyperincompressibility
+
+      <ul>
+        <li><a href="api/dolfin_mech/operators/hyperincompressibility/index.html#module-dolfin_mech.operators.hyperincompressibility">module</a>
+</li>
+      </ul></li>
+      <li>
+    dolfin_mech.operators.inertia
+
+      <ul>
+        <li><a href="api/dolfin_mech/operators/inertia/index.html#module-dolfin_mech.operators.inertia">module</a>
+</li>
+      </ul></li>
+      <li>
+    dolfin_mech.operators.linearizedelasticity
+
+      <ul>
+        <li><a href="api/dolfin_mech/operators/linearizedelasticity/index.html#module-dolfin_mech.operators.linearizedelasticity">module</a>
+</li>
+      </ul></li>
+      <li>
+    dolfin_mech.operators.linearizedhydrostaticpressure
+
+      <ul>
+        <li><a href="api/dolfin_mech/operators/linearizedhydrostaticpressure/index.html#module-dolfin_mech.operators.linearizedhydrostaticpressure">module</a>
+</li>
+      </ul></li>
+      <li>
+    dolfin_mech.operators.linearizedincompressibility
+
+      <ul>
+        <li><a href="api/dolfin_mech/operators/linearizedincompressibility/index.html#module-dolfin_mech.operators.linearizedincompressibility">module</a>
+</li>
+      </ul></li>
+      <li>
+    dolfin_mech.operators.loading.pressurebalancinggravity
+
+      <ul>
+        <li><a href="api/dolfin_mech/operators/loading/pressurebalancinggravity/index.html#module-dolfin_mech.operators.loading.pressurebalancinggravity">module</a>
+</li>
+      </ul></li>
+      <li>
+    dolfin_mech.operators.loading.surfaceforce
+
+      <ul>
+        <li><a href="api/dolfin_mech/operators/loading/surfaceforce/index.html#module-dolfin_mech.operators.loading.surfaceforce">module</a>
+</li>
+      </ul></li>
+      <li>
     dolfin_mech.operators.operator
 
       <ul>
@@ -526,13 +597,19 @@
         <li><a href="api/dolfin_mech/core/timevaryingconstant/index.html#dolfin_mech.core.timevaryingconstant.TimeVaryingConstant.homogenize">(dolfin_mech.core.timevaryingconstant.TimeVaryingConstant method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/dolfin_mech/materials/elastic/hooke/index.html#dolfin_mech.materials.elastic.hooke.Hooke">Hooke (class in dolfin_mech.materials.elastic.hooke)</a>
 </li>
       <li><a href="api/dolfin_mech/materials/elastic/hooke/index.html#dolfin_mech.materials.elastic.hooke.HookeBulk">HookeBulk (class in dolfin_mech.materials.elastic.hooke)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/dolfin_mech/materials/elastic/hooke/index.html#dolfin_mech.materials.elastic.hooke.HookeDev">HookeDev (class in dolfin_mech.materials.elastic.hooke)</a>
+</li>
+      <li><a href="api/dolfin_mech/operators/hyperelasticity/index.html#dolfin_mech.operators.hyperelasticity.HyperElasticity">HyperElasticity (class in dolfin_mech.operators.hyperelasticity)</a>
+</li>
+      <li><a href="api/dolfin_mech/operators/hyperhydrostaticpressure/index.html#dolfin_mech.operators.hyperhydrostaticpressure.HyperHydrostaticPressure">HyperHydrostaticPressure (class in dolfin_mech.operators.hyperhydrostaticpressure)</a>
+</li>
+      <li><a href="api/dolfin_mech/operators/hyperincompressibility/index.html#dolfin_mech.operators.hyperincompressibility.HyperIncompressibility">HyperIncompressibility (class in dolfin_mech.operators.hyperincompressibility)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -542,14 +619,16 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/dolfin_mech/materials/inelastic/inelastic/index.html#dolfin_mech.materials.inelastic.inelastic.InelasticMaterial">InelasticMaterial (class in dolfin_mech.materials.inelastic.inelastic)</a>
 </li>
+      <li><a href="api/dolfin_mech/operators/inertia/index.html#dolfin_mech.operators.inertia.Inertia">Inertia (class in dolfin_mech.operators.inertia)</a>
+</li>
       <li><a href="api/dolfin_mech/core/subsol/index.html#dolfin_mech.core.subsol.SubSol.init_with_field">init_with_field() (dolfin_mech.core.subsol.SubSol method)</a>
 </li>
       <li><a href="api/dolfin_mech/core/subsol/index.html#dolfin_mech.core.subsol.SubSol.init_with_val">init_with_val() (dolfin_mech.core.subsol.SubSol method)</a>
 </li>
-      <li><a href="api/dolfin_mech/core/subdomain_pinpoint/index.html#dolfin_mech.core.subdomain_pinpoint.PinpointSubDomain.inside">inside() (dolfin_mech.core.subdomain_pinpoint.PinpointSubDomain method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/dolfin_mech/core/subdomain_pinpoint/index.html#dolfin_mech.core.subdomain_pinpoint.PinpointSubDomain.inside">inside() (dolfin_mech.core.subdomain_pinpoint.PinpointSubDomain method)</a>
+</li>
       <li><a href="api/dolfin_mech/core/subdomain_periodic/index.html#dolfin_mech.core.subdomain_periodic.PeriodicSubDomain.inside_2D">inside_2D() (dolfin_mech.core.subdomain_periodic.PeriodicSubDomain method)</a>
 </li>
       <li><a href="api/dolfin_mech/core/subdomain_periodic/index.html#dolfin_mech.core.subdomain_periodic.PeriodicSubDomain.inside_3D">inside_3D() (dolfin_mech.core.subdomain_periodic.PeriodicSubDomain method)</a>
@@ -582,8 +661,14 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/dolfin_mech/core/nonlinearsolver/index.html#dolfin_mech.core.nonlinearsolver.NonlinearSolver.linear_solve">linear_solve() (dolfin_mech.core.nonlinearsolver.NonlinearSolver method)</a>
 </li>
+      <li><a href="api/dolfin_mech/operators/linearizedelasticity/index.html#dolfin_mech.operators.linearizedelasticity.LinearizedElasticity">LinearizedElasticity (class in dolfin_mech.operators.linearizedelasticity)</a>
+</li>
+      <li><a href="api/dolfin_mech/operators/linearizedhydrostaticpressure/index.html#dolfin_mech.operators.linearizedhydrostaticpressure.LinearizedHydrostaticPressure">LinearizedHydrostaticPressure (class in dolfin_mech.operators.linearizedhydrostaticpressure)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/dolfin_mech/operators/linearizedincompressibility/index.html#dolfin_mech.operators.linearizedincompressibility.LinearizedIncompressibility">LinearizedIncompressibility (class in dolfin_mech.operators.linearizedincompressibility)</a>
+</li>
       <li><a href="api/dolfin_mech/kinematics/linearizedkinematics/index.html#dolfin_mech.kinematics.linearizedkinematics.LinearizedKinematics">LinearizedKinematics (class in dolfin_mech.kinematics.linearizedkinematics)</a>
 </li>
       <li><a href="api/dolfin_mech/core/loading/index.html#dolfin_mech.core.loading.Loading">Loading (class in dolfin_mech.core.loading)</a>
@@ -684,6 +769,24 @@
 </li>
         <li><a href="api/dolfin_mech/operators/constraint_macroscopicstresscomponent/index.html#module-dolfin_mech.operators.constraint_macroscopicstresscomponent">dolfin_mech.operators.constraint_macroscopicstresscomponent</a>
 </li>
+        <li><a href="api/dolfin_mech/operators/hyperelasticity/index.html#module-dolfin_mech.operators.hyperelasticity">dolfin_mech.operators.hyperelasticity</a>
+</li>
+        <li><a href="api/dolfin_mech/operators/hyperhydrostaticpressure/index.html#module-dolfin_mech.operators.hyperhydrostaticpressure">dolfin_mech.operators.hyperhydrostaticpressure</a>
+</li>
+        <li><a href="api/dolfin_mech/operators/hyperincompressibility/index.html#module-dolfin_mech.operators.hyperincompressibility">dolfin_mech.operators.hyperincompressibility</a>
+</li>
+        <li><a href="api/dolfin_mech/operators/inertia/index.html#module-dolfin_mech.operators.inertia">dolfin_mech.operators.inertia</a>
+</li>
+        <li><a href="api/dolfin_mech/operators/linearizedelasticity/index.html#module-dolfin_mech.operators.linearizedelasticity">dolfin_mech.operators.linearizedelasticity</a>
+</li>
+        <li><a href="api/dolfin_mech/operators/linearizedhydrostaticpressure/index.html#module-dolfin_mech.operators.linearizedhydrostaticpressure">dolfin_mech.operators.linearizedhydrostaticpressure</a>
+</li>
+        <li><a href="api/dolfin_mech/operators/linearizedincompressibility/index.html#module-dolfin_mech.operators.linearizedincompressibility">dolfin_mech.operators.linearizedincompressibility</a>
+</li>
+        <li><a href="api/dolfin_mech/operators/loading/pressurebalancinggravity/index.html#module-dolfin_mech.operators.loading.pressurebalancinggravity">dolfin_mech.operators.loading.pressurebalancinggravity</a>
+</li>
+        <li><a href="api/dolfin_mech/operators/loading/surfaceforce/index.html#module-dolfin_mech.operators.loading.surfaceforce">dolfin_mech.operators.loading.surfaceforce</a>
+</li>
         <li><a href="api/dolfin_mech/operators/operator/index.html#module-dolfin_mech.operators.operator">dolfin_mech.operators.operator</a>
 </li>
       </ul></li>
@@ -731,11 +834,15 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/dolfin_mech/core/subdomain_periodic/index.html#dolfin_mech.core.subdomain_periodic.PeriodicSubDomain">PeriodicSubDomain (class in dolfin_mech.core.subdomain_periodic)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/dolfin_mech/core/subdomain_pinpoint/index.html#dolfin_mech.core.subdomain_pinpoint.PinpointSubDomain">PinpointSubDomain (class in dolfin_mech.core.subdomain_pinpoint)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/dolfin_mech/materials/elastic/porous/index.html#dolfin_mech.materials.elastic.porous.Porous">Porous (class in dolfin_mech.materials.elastic.porous)</a>
+</li>
+      <li><a href="api/dolfin_mech/operators/loading/pressurebalancinggravity/index.html#dolfin_mech.operators.loading.pressurebalancinggravity.PressureBalancingGravity">PressureBalancingGravity (class in dolfin_mech.operators.loading.pressurebalancinggravity)</a>
+</li>
+      <li><a href="api/dolfin_mech/operators/loading/pressurebalancinggravity/index.html#dolfin_mech.operators.loading.pressurebalancinggravity.PressureBalancingGravity0">PressureBalancingGravity0 (class in dolfin_mech.operators.loading.pressurebalancinggravity)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -763,8 +870,12 @@
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/dolfin_mech/operators/operator/index.html#dolfin_mech.operators.operator.Operator.set_dt">set_dt() (dolfin_mech.operators.operator.Operator method)</a>
+      <li><a href="api/dolfin_mech/operators/inertia/index.html#dolfin_mech.operators.inertia.Inertia.set_dt">set_dt() (dolfin_mech.operators.inertia.Inertia method)</a>
+
+      <ul>
+        <li><a href="api/dolfin_mech/operators/operator/index.html#dolfin_mech.operators.operator.Operator.set_dt">(dolfin_mech.operators.operator.Operator method)</a>
 </li>
+      </ul></li>
       <li><a href="api/dolfin_mech/core/timevaryingconstant/index.html#dolfin_mech.core.timevaryingconstant.TimeVaryingConstant.set_dvalue_at_t_step">set_dvalue_at_t_step() (dolfin_mech.core.timevaryingconstant.TimeVaryingConstant method)</a>
 </li>
       <li><a href="api/dolfin_mech/core/constraint/index.html#dolfin_mech.core.constraint.Constraint.set_value_at_t_step">set_value_at_t_step() (dolfin_mech.core.constraint.Constraint method)</a>
@@ -775,6 +886,16 @@
         <li><a href="api/dolfin_mech/core/timevaryingconstant/index.html#dolfin_mech.core.timevaryingconstant.TimeVaryingConstant.set_value_at_t_step">(dolfin_mech.core.timevaryingconstant.TimeVaryingConstant method)</a>
 </li>
         <li><a href="api/dolfin_mech/operators/constraint_macroscopicstresscomponent/index.html#dolfin_mech.operators.constraint_macroscopicstresscomponent.MacroscopicStressComponentConstraint.set_value_at_t_step">(dolfin_mech.operators.constraint_macroscopicstresscomponent.MacroscopicStressComponentConstraint method)</a>
+</li>
+        <li><a href="api/dolfin_mech/operators/inertia/index.html#dolfin_mech.operators.inertia.Inertia.set_value_at_t_step">(dolfin_mech.operators.inertia.Inertia method)</a>
+</li>
+        <li><a href="api/dolfin_mech/operators/loading/pressurebalancinggravity/index.html#dolfin_mech.operators.loading.pressurebalancinggravity.PressureBalancingGravity.set_value_at_t_step">(dolfin_mech.operators.loading.pressurebalancinggravity.PressureBalancingGravity method)</a>
+</li>
+        <li><a href="api/dolfin_mech/operators/loading/pressurebalancinggravity/index.html#dolfin_mech.operators.loading.pressurebalancinggravity.PressureBalancingGravity0.set_value_at_t_step">(dolfin_mech.operators.loading.pressurebalancinggravity.PressureBalancingGravity0 method)</a>
+</li>
+        <li><a href="api/dolfin_mech/operators/loading/surfaceforce/index.html#dolfin_mech.operators.loading.surfaceforce.SurfaceForce.set_value_at_t_step">(dolfin_mech.operators.loading.surfaceforce.SurfaceForce method)</a>
+</li>
+        <li><a href="api/dolfin_mech/operators/loading/surfaceforce/index.html#dolfin_mech.operators.loading.surfaceforce.SurfaceForce0.set_value_at_t_step">(dolfin_mech.operators.loading.surfaceforce.SurfaceForce0 method)</a>
 </li>
         <li><a href="api/dolfin_mech/operators/operator/index.html#dolfin_mech.operators.operator.Operator.set_value_at_t_step">(dolfin_mech.operators.operator.Operator method)</a>
 </li>
@@ -790,6 +911,10 @@
       <li><a href="api/dolfin_mech/core/step/index.html#dolfin_mech.core.step.Step">Step (class in dolfin_mech.core.step)</a>
 </li>
       <li><a href="api/dolfin_mech/core/subsol/index.html#dolfin_mech.core.subsol.SubSol">SubSol (class in dolfin_mech.core.subsol)</a>
+</li>
+      <li><a href="api/dolfin_mech/operators/loading/surfaceforce/index.html#dolfin_mech.operators.loading.surfaceforce.SurfaceForce">SurfaceForce (class in dolfin_mech.operators.loading.surfaceforce)</a>
+</li>
+      <li><a href="api/dolfin_mech/operators/loading/surfaceforce/index.html#dolfin_mech.operators.loading.surfaceforce.SurfaceForce0">SurfaceForce0 (class in dolfin_mech.operators.loading.surfaceforce)</a>
 </li>
   </ul></td>
 </tr></table>

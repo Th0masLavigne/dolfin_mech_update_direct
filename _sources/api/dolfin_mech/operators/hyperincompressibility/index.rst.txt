@@ -1,0 +1,59 @@
+dolfin_mech.operators.hyperincompressibility
+============================================
+
+.. py:module:: dolfin_mech.operators.hyperincompressibility
+
+.. autoapi-nested-parse::
+
+   Defines the HyperIncompressibilityOperator class.
+
+   Assembles the
+   volumetric constraint equation for incompressible nonlinear mechanics,
+   enforcing the condition that the Jacobian of the deformation gradient
+   remains equal to unity.
+
+
+
+
+
+Module Contents
+---------------
+
+.. py:class:: HyperIncompressibility(kinematics, P_test, measure)
+
+   Bases: :py:obj:`dolfin_mech.operators.operator.Operator`
+
+
+   Operator enforcing the incompressibility constraint in a hyperelastic framework.
+
+   This operator is the counterpart to the :class:`HyperHydrostaticPressureOperator`.
+   In a mixed displacement-pressure formulation, it assembles the equation
+   governing the Lagrange multiplier (pressure) to enforce that the material
+   is volume-preserving.
+
+   The residual contribution is:
+
+   .. math::
+       \mathcal{R}_{incomp} = - \int_{\Omega_0} (J - 1) \delta P \, d\Omega_0
+
+   Where:
+       - :math:`J = \det(\mathbf{F})` is the volume ratio (Jacobian).
+       - :math:`J - 1 = 0` is the strong form of the incompressibility constraint.
+       - :math:`\delta P` is the test function associated with the pressure field.
+
+   :ivar kinematics: Kinematic variables providing the Jacobian :math:`J`.
+   :vartype kinematics: :py:class:`Kinematics`
+   :ivar measure: Integration measure (typically ``dx``).
+   :vartype measure: :py:class:`dolfin.Measure`
+   :ivar res_form: The resulting residual variational form.
+
+   :vartype res_form: :py:class:`UFL form`
+
+   :param kinematics: Kinematics object providing the Jacobian.
+   :type kinematics: dmech.Kinematics
+   :param P_test: Test function associated with the pressure field (Lagrange multiplier).
+   :type P_test: dolfin.TestFunction
+   :param measure: Dolfin measure for domain integration.
+   :type measure: dolfin.Measure
+
+

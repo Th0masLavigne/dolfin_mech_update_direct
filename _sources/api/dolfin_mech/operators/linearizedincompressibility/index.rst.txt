@@ -1,0 +1,63 @@
+dolfin_mech.operators.linearizedincompressibility
+=================================================
+
+.. py:module:: dolfin_mech.operators.linearizedincompressibility
+
+.. autoapi-nested-parse::
+
+   Defines the LinearizedIncompressibility class.
+
+   Assembles the
+   linearized volumetric constraint (divergence-free condition) to enforce
+   material incompressibility within a small-strain mixed variational framework.
+
+
+
+
+
+Module Contents
+---------------
+
+.. py:class:: LinearizedIncompressibility(kinematics, p_test, measure)
+
+   Bases: :py:obj:`dolfin_mech.operators.operator.Operator`
+
+
+   Operator enforcing the incompressibility constraint in a linearized (small strain) elasticity framework.
+
+   This operator is the counterpart to the :class:`LinearizedHydrostaticPressureOperator`.
+   In a mixed displacement-pressure formulation, it assembles the equation
+   governing the Lagrange multiplier (pressure) to enforce that the material
+   volume remains constant under small deformations.
+
+   The residual contribution is:
+
+   .. math::
+       \mathcal{R}_{incomp} = - \int_{\Omega} \text{tr}(\mathbf{\epsilon}) \delta p \, d\Omega
+
+   where:
+       - :math:`\mathbf{\epsilon}` is the infinitesimal strain tensor.
+       - :math:`\text{tr}(\mathbf{\epsilon}) = \nabla \cdot \mathbf{u}` is the
+         linearized volumetric strain.
+       - :math:`\delta p` is the test function associated with the pressure field.
+
+   The constraint :math:`\text{tr}(\mathbf{\epsilon}) = 0` effectively ensures
+   that the displacement field is solenoidal (divergence-free).
+
+   :ivar kinematics: Kinematic variables providing the infinitesimal strain.
+   :vartype kinematics: :py:class:`Kinematics`
+   :ivar measure: Integration measure (typically ``dx``).
+   :vartype measure: :py:class:`dolfin.Measure`
+   :ivar res_form: The resulting residual variational form.
+
+
+   :vartype res_form: :py:class:`UFL form`
+
+   :param kinematics: Kinematics object handling infinitesimal strains.
+   :type kinematics: dmech.Kinematics
+   :param p_test: Test function associated with the pressure field (Lagrange multiplier).
+   :type p_test: dolfin.TestFunction
+   :param measure: Dolfin measure for domain integration.
+   :type measure: dolfin.Measure
+
+

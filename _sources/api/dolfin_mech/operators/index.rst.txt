@@ -9,4 +9,12 @@ Operators
    :titlesonly:
 
    Constraint Macroscopicstresscomponent <constraint_macroscopicstresscomponent/index>
+   Hyperelasticity <hyperelasticity/index>
+   Hyperhydrostaticpressure <hyperhydrostaticpressure/index>
+   Hyperincompressibility <hyperincompressibility/index>
+   Inertia <inertia/index>
+   Linearizedelasticity <linearizedelasticity/index>
+   Linearizedhydrostaticpressure <linearizedhydrostaticpressure/index>
+   Linearizedincompressibility <linearizedincompressibility/index>
+   Loading <loading/index>
    Operator <operator/index>

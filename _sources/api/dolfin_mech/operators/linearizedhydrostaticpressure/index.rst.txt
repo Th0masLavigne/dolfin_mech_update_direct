@@ -1,0 +1,65 @@
+dolfin_mech.operators.linearizedhydrostaticpressure
+===================================================
+
+.. py:module:: dolfin_mech.operators.linearizedhydrostaticpressure
+
+.. autoapi-nested-parse::
+
+   Defines the LinearizedHydrostaticPressure class.
+
+   Implements the
+   coupling term between the pressure field and volumetric strain within
+   a small-strain mixed variational framework.
+
+
+
+
+
+Module Contents
+---------------
+
+.. py:class:: LinearizedHydrostaticPressure(kinematics, u_test, p, measure)
+
+   Bases: :py:obj:`dolfin_mech.operators.operator.Operator`
+
+
+   Operator representing the virtual work of hydrostatic pressure in a linearized (small strain) elasticity framework.
+
+   In mixed displacement-pressure formulations, this operator defines the
+   coupling term between the pressure field :math:`p` and the displacement
+   test function :math:`\delta \mathbf{u}`. Physically, it represents the
+   internal virtual work done by the pressure during a volumetric change.
+
+   The internal virtual work contribution :math:`\delta \Pi_{pres}` is:
+
+   .. math::
+       \delta \Pi_{pres} = - \int_{\Omega} p \, \text{tr}(\delta \mathbf{\epsilon}) \, d\Omega
+
+   where:
+       - :math:`p` is the hydrostatic pressure (often a Lagrange multiplier).
+       - :math:`\delta \mathbf{\epsilon} = \text{sym}(\nabla \delta \mathbf{u})` is the
+         virtual infinitesimal strain tensor.
+       - :math:`\text{tr}(\delta \mathbf{\epsilon}) = \nabla \cdot \delta \mathbf{u}`
+         represents the virtual linearized volumetric strain.
+
+   :ivar kinematics: Kinematic variables associated with the small strain problem.
+   :vartype kinematics: :py:class:`Kinematics`
+   :ivar p: The hydrostatic pressure field.
+   :vartype p: :py:class:`dolfin.Function or dolfin.Constant`
+   :ivar measure: Integration measure (typically ``dx``).
+   :vartype measure: :py:class:`dolfin.Measure`
+   :ivar res_form: The resulting residual variational form.
+
+
+   :vartype res_form: :py:class:`UFL form`
+
+   :param kinematics: Kinematics object handling infinitesimal strains.
+   :type kinematics: dmech.Kinematics
+   :param u_test: The displacement test function (virtual displacement).
+   :type u_test: dolfin.TestFunction
+   :param p: Hydrostatic pressure field or constant.
+   :type p: dolfin.Function, dolfin.Constant, or dolfin.TrialFunction
+   :param measure: Dolfin measure for domain integration.
+   :type measure: dolfin.Measure
+
+

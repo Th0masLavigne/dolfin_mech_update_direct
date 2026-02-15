@@ -1,0 +1,112 @@
+dolfin_mech.operators.loading.surfaceforce
+==========================================
+
+.. py:module:: dolfin_mech.operators.loading.surfaceforce
+
+.. autoapi-nested-parse::
+
+   Defines the SurfaceForce operators.
+
+   Implement the virtual work of external
+   tractions in both finite strain (accounting for Nanson's formula and surface
+   area changes) and small strain frameworks.
+
+
+
+
+
+Module Contents
+---------------
+
+.. py:class:: SurfaceForce(U_test, kinematics, N, measure, F_val=None, F_ini=None, F_fin=None)
+
+   Bases: :py:obj:`dolfin_mech.operators.operator.Operator`
+
+
+   Operator representing an external surface force (traction) in a large deformation (finite strain) framework.
+
+   This operator assembles the virtual work done by an external traction vector
+   prescribed on a boundary. It accounts for the change in surface area and
+   orientation due to deformation using Nanson's formula.
+
+   The residual contribution is:
+
+   .. math::
+       \delta \Pi_{ext} = - \int_{\Gamma_0} \mathbf{T} \cdot \delta \mathbf{u} \, J \|\mathbf{F}^{-T} \mathbf{N}\| \, d\Gamma_0
+
+   where :math:`\mathbf{F}` is the deformation gradient and :math:`\mathbf{N}`
+   is the reference unit normal.
+
+   :ivar measure: Boundary measure (typically ``ds``).
+   :vartype measure: :py:class:`dolfin.Measure`
+   :ivar tv_F: Time-varying traction vector :math:`\mathbf{F}`.
+   :vartype tv_F: :py:class:`TimeVaryingConstant`
+   :ivar res_form: The resulting residual variational form.
+
+
+   :vartype res_form: :py:class:`UFL form`
+
+   :param U_test: Test function (virtual displacement).
+   :type U_test: dolfin.TestFunction
+   :param kinematics: Kinematics object providing the deformation gradient and Jacobian.
+   :type kinematics: dmech.Kinematics
+   :param N: Unit normal vector in the reference configuration.
+   :type N: dolfin.Constant or dolfin.Expression
+   :param measure: Dolfin measure for the boundary integration.
+   :type measure: dolfin.Measure
+   :param F_val: Static traction value.
+   :type F_val: list[float] or dolfin.Constant, optional
+   :param F_ini: Initial traction value for time-varying loads.
+   :type F_ini: list[float] or dolfin.Constant, optional
+   :param F_fin: Final traction value for time-varying loads.
+   :type F_fin: list[float] or dolfin.Constant, optional
+
+
+   .. py:method:: set_value_at_t_step(t_step)
+
+      Updates the traction vector for the current time step.
+
+      :param t_step: Current normalized time step (0.0 to 1.0).
+      :type t_step: float
+
+
+
+.. py:class:: SurfaceForce0(U_test, measure, F_val=None, F_ini=None, F_fin=None)
+
+   Bases: :py:obj:`dolfin_mech.operators.operator.Operator`
+
+
+   Operator representing an external surface force (traction) in a small strain (linearized) framework.
+
+   In the small strain assumption, the geometry is assumed to be undeformed,
+   meaning the current and reference surface areas and normals are identical.
+
+   The residual contribution is:
+
+   .. math::
+       \delta \Pi_{ext} = - \int_{\Gamma} \mathbf{F} \cdot \delta \mathbf{u} \, d\Gamma
+
+   :ivar measure: Boundary measure (typically ``ds``).
+   :vartype measure: :py:class:`dolfin.Measure`
+   :ivar tv_F: Time-varying traction vector :math:`\mathbf{F}`.
+   :vartype tv_F: :py:class:`TimeVaryingConstant`
+   :ivar res_form: The resulting residual variational form.
+
+
+   :vartype res_form: :py:class:`UFL form`
+
+   :param U_test: Test function (virtual displacement).
+   :type U_test: dolfin.TestFunction
+   :param measure: Dolfin measure for the boundary integration.
+   :type measure: dolfin.Measure
+   :param F_val: Static traction value.
+   :param F_ini: Initial traction value.
+   :param F_fin: Final traction value.
+
+
+   .. py:method:: set_value_at_t_step(t_step)
+
+      Updates the traction vector for the current time step.
+
+
+

@@ -1,0 +1,85 @@
+dolfin_mech.operators.inertia
+=============================
+
+.. py:module:: dolfin_mech.operators.inertia
+
+.. autoapi-nested-parse::
+
+   suammary
+
+
+
+
+
+Module Contents
+---------------
+
+.. py:class:: Inertia(U, U_old, U_test, measure, rho_val=None, rho_ini=None, rho_fin=None)
+
+   Bases: :py:obj:`dolfin_mech.operators.operator.Operator`
+
+
+   Operator representing the inertial forces in a dynamic mechanical system.
+
+   This operator assembles the residual contribution of the inertial terms
+   using a backward Euler time-discretization scheme for the velocity.
+   It is derived from the kinetic energy of the system.
+
+   The kinetic energy functional :math:`\Pi_{kin}` is defined as:
+
+   .. math::
+       \Pi_{kin} = \int_{\Omega} \frac{1}{2} \rho \mathbf{V} \cdot \mathbf{V} \, d\Omega
+
+   where the velocity :math:`\mathbf{V}` is approximated by:
+
+   .. math::
+       \mathbf{V} \approx \frac{\mathbf{u} - \mathbf{u}_{old}}{\Delta t}
+
+   The residual form is obtained by taking the directional derivative of
+   :math:`\Pi_{kin}` with respect to the displacement :math:`\mathbf{u}`
+   in the direction of the test function :math:`\delta \mathbf{u}`.
+
+   :ivar measure: The integration measure (typically ``dx``).
+   :vartype measure: :py:class:`dolfin.Measure`
+   :ivar tv_rho: Time-varying mass density :math:`\rho`.
+   :vartype tv_rho: :py:class:`TimeVaryingConstant`
+   :ivar tv_dt: Time step size :math:`\Delta t`.
+   :vartype tv_dt: :py:class:`TimeVaryingConstant`
+   :ivar res_form: The resulting residual variational form.
+
+   :vartype res_form: :py:class:`UFL form`
+
+   :param U: Current displacement field.
+   :type U: dolfin.Function
+   :param U_old: Displacement field from the previous time step.
+   :type U_old: dolfin.Function
+   :param U_test: Test function (virtual displacement).
+   :type U_test: dolfin.TestFunction
+   :param measure: Dolfin measure for domain integration.
+   :type measure: dolfin.Measure
+   :param rho_val: Static value for mass density.
+   :type rho_val: float, optional
+   :param rho_ini: Initial value for time-varying mass density.
+   :type rho_ini: float, optional
+   :param rho_fin: Final value for time-varying mass density.
+   :type rho_fin: float, optional
+
+
+   .. py:method:: set_value_at_t_step(t_step)
+
+      Updates the time-varying mass density based on the current time step.
+
+      :param t_step: Current normalized time step (0.0 to 1.0).
+      :type t_step: float
+
+
+
+   .. py:method:: set_dt(dt)
+
+      Updates the time step size used in the velocity approximation.
+
+      :param dt: Current time step size :math:`\Delta t`.
+      :type dt: float
+
+
+
