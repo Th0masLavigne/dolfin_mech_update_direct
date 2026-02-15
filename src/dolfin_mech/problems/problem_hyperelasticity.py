@@ -1,0 +1,409 @@
+# coding=utf8
+
+################################################################################
+###                                                                          ###
+### Created by Martin Genet, 2018-2025                                       ###
+###                                                                          ###
+### École Polytechnique, Palaiseau, France                                   ###
+###                                                                          ###
+################################################################################
+
+"""Defines the Hyperelasticity class.
+
+Comprehensive manager for nonlinear
+finite strain simulations. It automates the setup of large-deformation
+kinematics, complex hyperelastic constitutive laws, and mixed formulations
+required for incompressible and nearly-incompressible material behavior.
+"""
+
+from .. import kinematics, operators
+from .problem import Problem
+
+################################################################################
+
+
+class Hyperelasticity(Problem):
+	r"""A general problem class for finite strain hyperelasticity.
+
+	This class handles the setup and solution of nonlinear elasticity problems
+	where the material behavior is described by a strain energy density function
+	:math:`\Psi(\mathbf{C})`. It supports both compressible and incompressible
+	formulations.
+
+
+
+	**Formulation:**
+	The problem minimizes the total potential energy :math:`\Pi(\mathbf{u})`:
+
+	.. math::
+	    \Pi(\mathbf{u}) = \int_{\Omega_0} \Psi(\mathbf{F}) \, dV - W_{ext}
+
+	If ``w_incompressibility`` is True, a mixed :math:`\mathbf{u}-p` formulation
+	is used to enforce the constraint :math:`J = 1` (or near-incompressibility)
+	via a Lagrange multiplier :math:`p`:
+
+	.. math::
+	    \Pi(\mathbf{u}, p) = \int_{\Omega_0} \Psi_{dev}(\bar{\mathbf{F}}) \, dV + \int_{\Omega_0} p(J-1) \, dV - W_{ext}
+
+	:param w_incompressibility: If True, enables the mixed formulation adding a
+	    pressure sub-solution to handle volumetric locking.
+	:type w_incompressibility: bool
+	:param mesh: The computational mesh.
+	:param displacement_degree: Polynomial degree for the displacement field.
+	:param elastic_behavior: Dictionary defining a single material model.
+	:param elastic_behaviors: List of dictionaries for multi-material setups.
+	"""
+
+	def __init__(
+		self,
+		w_incompressibility=False,
+		mesh=None,
+		define_facet_normals=False,
+		domains_mf=None,
+		boundaries_mf=None,
+		points_mf=None,
+		displacement_degree=None,
+		pressure_degree=None,
+		quadrature_degree=None,
+		foi_degree=0,
+		elastic_behavior=None,
+		elastic_behaviors=None,
+	):
+
+		Problem.__init__(self)
+
+		self.w_incompressibility = w_incompressibility
+
+		self.set_mesh(mesh=mesh, define_facet_normals=define_facet_normals)
+
+		self.set_measures(domains=domains_mf, boundaries=boundaries_mf, points=points_mf)
+
+		self.set_subsols(displacement_degree=displacement_degree, pressure_degree=pressure_degree)
+
+		self.set_solution_finite_element()
+		self.set_solution_function_space()
+		self.set_solution_functions()
+
+		self.set_quadrature_degree(quadrature_degree=quadrature_degree)
+
+		self.set_foi_finite_elements_DG(degree=foi_degree)
+		self.set_foi_function_spaces()
+
+		self.set_kinematics()
+
+		assert (elastic_behavior is None) or (elastic_behaviors is None)
+		assert (elastic_behavior is not None) or (elastic_behaviors is not None)
+		if elastic_behavior is not None:
+			elastic_behaviors = [elastic_behavior]
+
+		self.add_elasticity_operators(elastic_behaviors=elastic_behaviors)
+
+	def add_displacement_subsol(self, name=None, degree=1):
+		"""Adds the displacement vector field sub-solution.
+
+		:param name: Name of the variable (defaults to "U" or "u").
+		:param degree: Polynomial degree of the Finite Element (usually 1 or 2).
+		"""
+		if name is not None:
+			self.displacement_name = name
+		else:
+			self.displacement_name = "u" if ("Inverse" in str(self)) else "U"
+		self.displacement_degree = degree
+		self.displacement_subsol = self.add_vector_subsol(
+			name=self.displacement_name, family="CG", degree=self.displacement_degree
+		)
+
+	def add_pressure_subsol(self, name=None, degree=0):
+		"""Adds the pressure scalar field sub-solution (Lagrange multiplier).
+
+		This is used only when ``w_incompressibility`` is True. To satisfy the
+		LBB condition (inf-sup condition) and avoid volumetric locking, the
+		pressure degree is typically lower than the displacement degree (e.g., P2-P1).
+
+
+		"""
+		if name is not None:
+			self.pressure_name = name
+		else:
+			self.pressure_name = "p" if ("Inverse" in str(self)) else "P"
+		self.pressure_degree = degree
+		if self.pressure_degree == 0:
+			self.pressure_subsol = self.add_scalar_subsol(name=self.pressure_name, family="DG", degree=0)
+		else:
+			self.pressure_subsol = self.add_scalar_subsol(
+				name=self.pressure_name, family="CG", degree=self.pressure_degree
+			)
+
+	def set_subsols(self, displacement_degree=1, pressure_degree=None):
+		"""Configures the unknown fields (displacement and optionally pressure)."""
+		self.add_displacement_subsol(degree=displacement_degree)
+
+		if self.w_incompressibility:
+			if pressure_degree is None:
+				pressure_degree = displacement_degree - 1
+			self.add_pressure_subsol(degree=pressure_degree)
+
+	def set_quadrature_degree(self, quadrature_degree=None):
+		"""Sets the integration order for the variational forms.
+
+		Can be an integer, "full" (exact), or "default" (optimized).
+		The "default" mode attempts to use a reduced quadrature rule that is
+		computationally efficient while maintaining accuracy for standard element types.
+		"""
+		if (quadrature_degree is None) or (type(quadrature_degree) == int):
+			pass
+		elif quadrature_degree == "full":
+			quadrature_degree = None
+		elif quadrature_degree == "default":
+			if self.mesh.ufl_cell().cellname() in ("triangle", "tetrahedron"):
+				quadrature_degree = max(
+					2, 4 * (self.displacement_degree - 1)
+				)  # MG20211221: This does not allow to reproduce full integration results exactly, but it is quite close…
+			elif self.mesh.ufl_cell().cellname() in ("quadrilateral", "hexahedron"):
+				quadrature_degree = max(2, 4 * (self.dim * self.displacement_degree - 1))
+		else:
+			assert 0, 'Must provide an int, "full", "default" or None. Aborting.'
+
+		Problem.set_quadrature_degree(self, quadrature_degree=quadrature_degree)
+
+	def set_kinematics(self, add_fois=True):
+		r"""Initializes the kinematic quantities derived from displacement.
+
+		Calculates:
+		    - **F**: Deformation Gradient (:math:`\mathbf{I} + \nabla \mathbf{u}`)
+		    - **J**: Jacobian determinant (:math:`\det \mathbf{F}`)
+		    - **C**: Right Cauchy-Green deformation tensor (:math:`\mathbf{F}^T \mathbf{F}`)
+		    - **E**: Green-Lagrange strain tensor (:math:`0.5 (\mathbf{C} - \mathbf{I})`)
+
+		:param add_fois: If True, registers these tensors as Fields of Interest for output.
+		"""
+		self.kinematics = kinematics.Kinematics(
+			U=self.displacement_subsol.subfunc, U_old=self.displacement_subsol.func_old, Q_expr=self.Q_expr
+		)
+
+		if add_fois:
+			self.add_foi(expr=self.kinematics.F, fs=self.mfoi_fs, name="F")
+			self.add_foi(expr=self.kinematics.J, fs=self.sfoi_fs, name="J")
+			self.add_foi(expr=self.kinematics.C, fs=self.mfoi_fs, name="C")
+			self.add_foi(expr=self.kinematics.E, fs=self.mfoi_fs, name="E")
+			if self.Q_expr is not None:
+				self.add_foi(expr=self.kinematics.E_loc, fs=self.mfoi_fs, name="E_loc")
+
+	def get_subdomain_measure(self, subdomain_id=None):
+		"""Returns the integration measure (dV) for a specific subdomain ID or the whole domain."""
+		if subdomain_id is None:
+			return self.dV
+		else:
+			return self.dV(subdomain_id)
+
+	def add_elasticity_operator(self, material_model, material_parameters, subdomain_id=None):
+		r"""Adds a standard hyperelasticity operator to the problem.
+
+		This adds the contribution :math:`\int \Psi(\mathbf{C}) dV` to the energy,
+		automatically handling the first variation to compute the residual.
+		"""
+		operator = operators.HyperElasticity(
+			U=self.displacement_subsol.subfunc,
+			U_test=self.displacement_subsol.dsubtest,
+			kinematics=self.kinematics,
+			material_model=material_model,
+			material_parameters=material_parameters,
+			measure=self.get_subdomain_measure(subdomain_id),
+		)
+		return self.add_operator(operator)
+
+	def add_hydrostatic_pressure_operator(self, subdomain_id=None):
+		"""Adds the operator linking the pressure variable to the kinematics."""
+		operator = operators.HyperHydrostaticPressure(
+			kinematics=self.kinematics,
+			U_test=self.displacement_subsol.dsubtest,
+			P=self.pressure_subsol.subfunc,
+			measure=self.get_subdomain_measure(subdomain_id),
+		)
+		return self.add_operator(operator)
+
+	def add_incompressibility_operator(self, subdomain_id=None):
+		"""Adds the incompressibility constraint operator.
+
+		Enforces :math:`J-1 = 0` (or volumetric compatibility) using the test
+		function of the pressure field.
+		"""
+		operator = operators.HyperIncompressibility(
+			kinematics=self.kinematics,
+			P_test=self.pressure_subsol.dsubtest,
+			measure=self.get_subdomain_measure(subdomain_id),
+		)
+		return self.add_operator(operator)
+
+	def add_elasticity_operators(self, elastic_behaviors):
+		"""Iterates through defined material behaviors and adds the necessary operators.
+
+		If ``w_incompressibility`` is active, it also adds the hydrostatic pressure
+		and incompressibility constraint operators.
+		"""
+		for elastic_behavior in elastic_behaviors:
+			operator = self.add_elasticity_operator(
+				material_model=elastic_behavior["model"],
+				material_parameters=elastic_behavior["parameters"],
+				subdomain_id=elastic_behavior.get("subdomain_id", None),
+			)
+			suffix = "_" + elastic_behavior["suffix"] if "suffix" in elastic_behavior else ""
+			self.add_foi(expr=operator.material.Sigma, fs=self.mfoi_fs, name="Sigma" + suffix)
+			self.add_foi(expr=operator.material.sigma, fs=self.mfoi_fs, name="sigma" + suffix)
+		if self.w_incompressibility:
+			self.add_hydrostatic_pressure_operator()
+			self.add_incompressibility_operator()
+
+		if self.Q_expr is not None:
+			assert 0, "ToDo. Aborting."
+			# operator.sigma_loc = dolfin.dot(dolfin.dot(self.Q_expr, operator.sigma), self.Q_expr.T)
+			# self.add_foi(expr=operator.sigma_loc, fs=self.mfoi_fs, name="sigma_loc")
+
+	def add_point_displacement_qoi(self, name, coordinates, component):
+		"""Adds a Quantity of Interest (QOI) tracking displacement at a specific point."""
+		self.add_qoi(
+			name=name, expr=self.displacement_subsol.subfunc[component], point=coordinates, update_type="direct"
+		)
+
+	def add_point_position_qoi(self, name, coordinates, component):
+		"""Adds a QOI tracking the current spatial position (X + u) of a point."""
+		self.add_qoi(
+			name=name,
+			expr=self.displacement_subsol.subfunc[component],
+			constant=coordinates[component],
+			point=coordinates,
+			update_type="direct",
+		)
+
+	def add_deformed_volume_qoi(self):
+		"""Adds a QOI for the total volume of the deformed configuration."""
+		self.add_qoi(name="v", expr=self.kinematics.J * self.dV)
+
+	def add_global_strain_qois(self):
+		"""Adds QOIs for the volume-integrated components of the Green-Lagrange strain tensor E."""
+		basename = "E_"
+		strain = self.kinematics.E
+
+		self.add_qoi(name=basename + "XX", expr=strain[0, 0] * self.dV)
+		if self.dim >= 2:
+			self.add_qoi(name=basename + "YY", expr=strain[1, 1] * self.dV)
+			if self.dim >= 3:
+				self.add_qoi(name=basename + "ZZ", expr=strain[2, 2] * self.dV)
+		if self.dim >= 2:
+			self.add_qoi(name=basename + "XY", expr=strain[0, 1] * self.dV)
+			if self.dim >= 3:
+				self.add_qoi(name=basename + "YZ", expr=strain[1, 2] * self.dV)
+				self.add_qoi(name=basename + "ZX", expr=strain[2, 0] * self.dV)
+
+	def add_global_stress_qois(self, stress_type="cauchy"):
+		"""Adds QOIs for the volume-integrated components of the stress tensor.
+
+		:param stress_type: The type of stress to output:
+		    - "Cauchy" (sigma): Spatial configuration stress.
+		    - "PK2" (Sigma): Material configuration stress.
+		    - "PK1" (P): Nominal stress.
+		"""
+		if stress_type in ("Cauchy", "cauchy", "sigma"):
+			basename = "s_"
+			stress = "sigma"
+		elif stress_type in ("Piola", "piola", "PK2", "Sigma"):
+			basename = "S_"
+			stress = "Sigma"
+		elif stress_type in ("Boussinesq", "boussinesq", "PK1", "P"):
+			basename = "P_"
+			stress = "P"
+
+		self.add_qoi(
+			name=basename + "XX",
+			expr=sum(
+				[
+					getattr(operator.material, stress)[0, 0] * operator.measure
+					for operator in self.operators
+					if (hasattr(operator, "material") and hasattr(operator.material, stress))
+				]
+			),
+		)
+		if self.dim >= 2:
+			self.add_qoi(
+				name=basename + "YY",
+				expr=sum(
+					[
+						getattr(operator.material, stress)[1, 1] * operator.measure
+						for operator in self.operators
+						if (hasattr(operator, "material") and hasattr(operator.material, stress))
+					]
+				),
+			)
+			if self.dim >= 3:
+				self.add_qoi(
+					name=basename + "ZZ",
+					expr=sum(
+						[
+							getattr(operator.material, stress)[2, 2] * operator.measure
+							for operator in self.operators
+							if (hasattr(operator, "material") and hasattr(operator.material, stress))
+						]
+					),
+				)
+		if self.dim >= 2:
+			self.add_qoi(
+				name=basename + "XY",
+				expr=sum(
+					[
+						getattr(operator.material, stress)[0, 1] * operator.measure
+						for operator in self.operators
+						if (hasattr(operator, "material") and hasattr(operator.material, stress))
+					]
+				),
+			)
+			if self.dim >= 3:
+				self.add_qoi(
+					name=basename + "YZ",
+					expr=sum(
+						[
+							getattr(operator.material, stress)[1, 2] * operator.measure
+							for operator in self.operators
+							if (hasattr(operator, "material") and hasattr(operator.material, stress))
+						]
+					),
+				)
+				self.add_qoi(
+					name=basename + "ZX",
+					expr=sum(
+						[
+							getattr(operator.material, stress)[2, 0] * operator.measure
+							for operator in self.operators
+							if (hasattr(operator, "material") and hasattr(operator.material, stress))
+						]
+					),
+				)
+
+	def add_global_out_of_plane_stress_qois(self, stress_type="PK2"):
+		"""Adds QOI for the out-of-plane stress component (ZZ) specifically.
+		Useful for plane strain/stress approximations or 2D models representing 3D objects.
+		"""
+		if stress_type in ("Cauchy", "cauchy", "sigma"):
+			assert 0, "To do. Aborting."
+		elif stress_type in ("Piola", "piola", "PK2", "Sigma"):
+			basename = "S_ZZ"
+			stress = "Sigma_ZZ"
+		elif stress_type in ("Boussinesq", "boussinesq", "PK1", "P"):
+			assert 0, "To do. Aborting."
+
+		self.add_qoi(
+			name=basename,
+			expr=sum(
+				[
+					getattr(operator.material, stress) * operator.measure
+					for operator in self.operators
+					if (hasattr(operator, "material") and hasattr(operator.material, stress))
+				]
+			),
+		)
+
+	def add_global_pressure_qoi(self):
+		"""Adds QOI for the volume-integrated hydrostatic pressure P."""
+		self.add_qoi(
+			name="P", expr=sum([operator.P * operator.measure for operator in self.operators if hasattr(operator, "P")])
+		)
+		# expr=sum([-dolfin.tr(operator.material.sigma)/3*operator.measure for operator in self.operators if (hasattr(operator, "material") and hasattr(operator.material, "sigma"))])+sum([operator.P*operator.measure for operator in self.operators if hasattr(operator, "P")]))

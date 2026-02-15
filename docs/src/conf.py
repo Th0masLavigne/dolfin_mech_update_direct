@@ -91,7 +91,7 @@ autoapi_ignore = [
 ]
 autoapi_root = "api"
 autoapi_add_toctree_entry = False
-autoapi_keep_files = False # set True if debugging required but remember to delete docs/src/api/ && allows to have [source] in docs
+autoapi_keep_files = True # set True if debugging required but remember to delete docs/src/api/ && allows to have [source] in docs
 autoapi_generate_api_docs = True
 autoapi_member_order = "bysource"
 autoapi_python_use_implicit_namespaces = True
