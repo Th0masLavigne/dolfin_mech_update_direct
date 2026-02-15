@@ -8,7 +8,12 @@
 ###                                                                          ###
 ################################################################################
 
-"""summary"""
+"""Defines the LinearizedElasticity class.
+
+Implements the internal virtual
+work for small-strain mechanics, relating the Cauchy stress tensor to the
+infinitesimal strain tensor within a linear elastic framework.
+"""
 
 import dolfin
 
