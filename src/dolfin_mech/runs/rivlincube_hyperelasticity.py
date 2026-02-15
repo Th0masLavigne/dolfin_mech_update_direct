@@ -41,7 +41,48 @@ def RivlinCube_Hyperelasticity(
 	write_vtus_with_preserved_connectivity: bool = False,
 	verbose: bool = 0,
 ):
+	"""Runs the Rivlin Cube benchmark for Hyperelasticity (Forward or Inverse).
 
+	This function simulates a unit cube (or square) under large deformations.
+	It is the primary testbed for validating the solver's capabilities across
+	different physics and kinematic assumptions.
+
+
+
+	**Key Capabilities:**
+
+	1.  **Inverse/Forward**: Can solve the standard forward problem (given load, find deformation)
+	    or the inverse problem (given deformed shape, find reference configuration) by setting ``inverse=True``.
+	2.  **Incompressibility**: Supports mixed finite element formulations (:math:`u-p`) for
+	    incompressible materials via ``incomp=True``.
+	3.  **Multimaterial**: Can split the domain into two distinct material regions
+	    (e.g., stiff vs. soft) to test interface continuity and heterogeneous stress states.
+	4.  **Mesh Morphing**: Supports Arbitrary Lagrangian-Eulerian (ALE) mesh movement
+	    pre-solve via ``move_params``.
+
+	**Loading Modes (`load_params["type"]`):**
+
+	- ``"disp"``: Prescribed displacement (uniaxial/biaxial stretch).
+	- ``"volu"`` / ``"volu0"``: Body force in current / reference configuration.
+	- ``"surf"`` / ``"surf0"``: Surface traction vector in current / reference configuration.
+	- ``"pres"`` / ``"pres0"``: Hydrostatic pressure (follower load / dead load).
+	- ``"pgra"`` / ``"pgra0"``: Pressure gradient load (e.g., for hydrostatic fluid tanks).
+	- ``"tens"``: Surface tension effects.
+
+	:param dim: Dimension (2 or 3).
+	:param inverse: If True, uses :class:`InverseHyperelasticityProblem`.
+	:param incomp: If True, uses mixed formulation.
+	:param multimaterial: If True, defines two material subdomains.
+	:param cube_params: Mesh generation parameters.
+	:param mat_params: Material constitutive parameters.
+	:param step_params: Time-stepping configuration.
+	:param const_params: Boundary constraints (e.g., symmetry planes).
+	:param load_params: Loading configuration.
+	:param move_params: Parameters for pre-simulation mesh movement (ALE).
+	:param get_results: If True, returns the displacement function and measure at the end.
+	:param res_basename: Output filename prefix.
+	:return: (Optional) Tuple ``(displacement_function, measure)`` if ``get_results`` is True.
+	"""
 	################################################################### Mesh ###
 
 	if dim == 2:
