@@ -34,12 +34,12 @@ cov:
 
 docs:
 	@if [ -d "$(DOC_OUT)" ]; then rm -rf $(DOC_OUT)*; fi # folder cannot be removed if bind
-	@if [ -f "docs/src/api_toc.md" ]; then rm docs/src/api_toc.md; fi
 	mkdir -p $(DOC_OUT)
-	sphinx-build -b html $(DOC_SRC) $(DOC_OUT)
+	sphinx-build -W -v -P -E -a -b html $(DOC_SRC) $(DOC_OUT)
 
 clean:
 	rm -rf .pytest_cache .ruff_cache .venv build/ dist/ htmlcov/ 
-	rm -rf $(DOC_OUT) $(DOC_SRC)/api/ 
+	if [ -d "$(DOC_OUT)" ]; then rm -rf $(DOC_OUT)*; fi 
+	rm -rf $(DOC_SRC)api/
 	find . -type d -name "__pycache__" -exec rm -rf {} +
 	find . -type d -name "outputs" -exec rm -rf {} +

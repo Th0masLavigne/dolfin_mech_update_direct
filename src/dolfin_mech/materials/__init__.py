@@ -3,11 +3,11 @@
 This sub-package provides the material law/stresses of dolfin_mech as well as the material factory.
 """
 
-from . import elastic, inelastic
-from .material import (
+from .material import (  # isort: skip
 	Material,
 	material_factory,
 )
+from . import elastic, inelastic
 
 __all__ = [
 	"elastic",

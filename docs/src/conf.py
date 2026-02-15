@@ -5,9 +5,8 @@ import sys
 
 current_dir = Path(__file__).parent.resolve()
 project_root = current_dir.parent.parent
-sys.path.insert(0, str(project_root))
-sys.path.insert(0, str(project_root/ "src"))
 src_path = project_root / "src"
+sys.path.insert(0, str(src_path))
 # -----------------------------------------------------------------------------
 # Project information
 # -----------------------------------------------------------------------------
@@ -63,6 +62,8 @@ autodoc_default_options = {
 autodoc_typehints = "signature"
 python_use_unqualified_type_names = True
 
+# autodoc_mock_imports = ["dolfin", "fenics"]
+
 # -----------------------------------------------------------------------------
 # Napoleon Configuration 
 # -----------------------------------------------------------------------------
@@ -90,7 +91,7 @@ autoapi_ignore = [
 ]
 autoapi_root = "api"
 autoapi_add_toctree_entry = False
-autoapi_keep_files = True # set True if debugging required but remember to delete docs/src/api/ && allows to have [source] in docs
+autoapi_keep_files = False # set True if debugging required but remember to delete docs/src/api/ && allows to have [source] in docs
 autoapi_generate_api_docs = True
 autoapi_member_order = "bysource"
 autoapi_python_use_implicit_namespaces = True
@@ -125,8 +126,8 @@ copybutton_prompt_is_regexp = True
 
 extensions.append("sphinx.ext.intersphinx")
 intersphinx_mapping = {
-	"python": ("https://docs.python.org/3", None),
-	"numpy": ("https://numpy.org/doc/stable", None),
+	'python': ('https://docs.python.org/3/', None),
+    'numpy': ('https://numpy.org/doc/stable/', None),
 }
 
 # -----------------------------------------------------------------------------
@@ -216,9 +217,9 @@ def skip_globals(app, what, name, obj, skip, options):
 	return skip
 
 def setup(app):
+	# This ensures autoapi runs BEFORE our custom TOC generator
 	app.connect("builder-inited", generate_simple_toc)
 	app.connect("autodoc-skip-member", autodoc_skip_member)
-
 	app.connect("autoapi-skip-member", skip_globals)
 
 	if "custom.css" not in app.registry.css_files:

@@ -420,18 +420,18 @@ def material_factory(kinematics, model, parameters):
 	Example:
 	    >>> mat = material_factory(kin, "NH", {"E": 10.0, "nu": 0.3})
 	"""
-	from .elastic import *
+	from . import elastic
 
 	if model in ("hooke", "Hooke", "H"):
-		material = Hooke(kinematics=kinematics, parameters=parameters)
+		material = elastic.Hooke(kinematics=kinematics, parameters=parameters)
 	elif model in ("hooke_dev", "Hooke_dev", "H_dev"):
-		material = HookeDev(kinematics=kinematics, parameters=parameters)
+		material = elastic.HookeDev(kinematics=kinematics, parameters=parameters)
 	elif model in ("hooke_bulk", "Hooke_bulk", "H_bulk"):
-		material = HookeBulk(kinematics=kinematics, parameters=parameters)
+		material = elastic.HookeBulk(kinematics=kinematics, parameters=parameters)
 	elif model in ("saintvenantkirchhoff", "SaintVenantKirchhoff", "kirchhoff", "Kirchhoff", "SVK"):
-		material = Kirchhoff(kinematics=kinematics, parameters=parameters)
+		material = elastic.Kirchhoff(kinematics=kinematics, parameters=parameters)
 	elif model in ("saintvenantkirchhoff_dev", "SaintVenantKirchhoff_dev", "kirchhoff_dev", "Kirchhoff_dev", "SVK_dev"):
-		material = KirchhoffDev(kinematics=kinematics, parameters=parameters)
+		material = elastic.KirchhoffDev(kinematics=kinematics, parameters=parameters)
 	elif model in (
 		"saintvenantkirchhoff_bulk",
 		"SaintVenantKirchhoff_bulk",
@@ -439,21 +439,21 @@ def material_factory(kinematics, model, parameters):
 		"Kirchhoff_bulk",
 		"SVK_bulk",
 	):
-		material = KirchhoffBulk(kinematics=kinematics, parameters=parameters)
+		material = elastic.KirchhoffBulk(kinematics=kinematics, parameters=parameters)
 	elif model in ("neohookean", "NeoHookean", "NH"):
-		material = NeoHookean(kinematics=kinematics, parameters=parameters)
+		material = elastic.NeoHookean(kinematics=kinematics, parameters=parameters)
 	elif model in ("neohookean_bar", "NeoHookean_bar", "NH_bar"):
-		material = NeoHookean(kinematics=kinematics, parameters=parameters, decoup=True)
+		material = elastic.NeoHookean(kinematics=kinematics, parameters=parameters, decoup=True)
 	elif model in ("mooneyrivlin", "MooneyRivlin", "MR"):
-		material = MooneyRivlin(kinematics=kinematics, parameters=parameters)
+		material = elastic.MooneyRivlin(kinematics=kinematics, parameters=parameters)
 	elif model in ("mooneyrivlin_bar", "MooneyRivlin_bar", "MR_bar"):
-		material = MooneyRivlin(kinematics=kinematics, parameters=parameters, decoup=True)
+		material = elastic.MooneyRivlin(kinematics=kinematics, parameters=parameters, decoup=True)
 	elif model in ("neohookeanmooneyrivlin", "NeoHookeanMooneyRivlin", "NHMR"):
-		material = NeoHookeanMooneyRivlin(kinematics=kinematics, parameters=parameters)
+		material = elastic.NeoHookeanMooneyRivlin(kinematics=kinematics, parameters=parameters)
 	elif model in ("neohookeanmooneyrivlin_bar", "NeoHookeanMooneyRivlin_bar", "NHMR_bar"):
-		material = NeoHookeanMooneyRivlin(kinematics=kinematics, parameters=parameters, decoup=True)
+		material = elastic.NeoHookeanMooneyRivlin(kinematics=kinematics, parameters=parameters, decoup=True)
 	elif model in ("ogdenciarletgeymonat", "OgdenCiarletGeymonat", "OCG", "ciarletgeymonat", "CiarletGeymonat", "CG"):
-		material = OgdenCiarletGeymonat(kinematics=kinematics, parameters=parameters)
+		material = elastic.OgdenCiarletGeymonat(kinematics=kinematics, parameters=parameters)
 	elif model in (
 		"ogdenciarletgeymonat_bar",
 		"OgdenCiarletGeymonat_bar",
@@ -462,7 +462,7 @@ def material_factory(kinematics, model, parameters):
 		"CiarletGeymonat_bar",
 		"CG_bar",
 	):
-		material = OgdenCiarletGeymonat(kinematics=kinematics, parameters=parameters, decoup=True)
+		material = elastic.OgdenCiarletGeymonat(kinematics=kinematics, parameters=parameters, decoup=True)
 	elif model in (
 		"ogdenciarletgeymonatneohookean",
 		"OgdenCiarletGeymonatNeoHookean",
@@ -471,7 +471,7 @@ def material_factory(kinematics, model, parameters):
 		"CiarletGeymonatNeoHookean",
 		"CGNH",
 	):
-		material = OgdenCiarletGeymonatNeoHookean(kinematics=kinematics, parameters=parameters)
+		material = elastic.OgdenCiarletGeymonatNeoHookean(kinematics=kinematics, parameters=parameters)
 	elif model in (
 		"ogdenciarletgeymonatneohookean_bar",
 		"OgdenCiarletGeymonatNeoHookean_bar",
@@ -480,7 +480,7 @@ def material_factory(kinematics, model, parameters):
 		"CiarletGeymonatNeoHookean_bar",
 		"CGNH_bar",
 	):
-		material = OgdenCiarletGeymonatNeoHookean(kinematics=kinematics, parameters=parameters, decoup=True)
+		material = elastic.OgdenCiarletGeymonatNeoHookean(kinematics=kinematics, parameters=parameters, decoup=True)
 	elif model in (
 		"ogdenciarletgeymonatneohookeanmooneyrivlin",
 		"OgdenCiarletGeymonatNeoHookeanMooneyRivlin",
@@ -489,7 +489,7 @@ def material_factory(kinematics, model, parameters):
 		"CiarletGeymonatNeoHookeanMooneyRivlin",
 		"CGNHMR",
 	):
-		material = OgdenCiarletGeymonatNeoHookeanMooneyRivlin(kinematics=kinematics, parameters=parameters)
+		material = elastic.OgdenCiarletGeymonatNeoHookeanMooneyRivlin(kinematics=kinematics, parameters=parameters)
 	elif model in (
 		"ogdenciarletgeymonatneohookeanmooneyrivlin_bar",
 		"OgdenCiarletGeymonatNeoHookeanMooneyRivlin_bar",
@@ -498,11 +498,13 @@ def material_factory(kinematics, model, parameters):
 		"CiarletGeymonatNeoHookeanMooneyRivlin_bar",
 		"CGNHMR_bar",
 	):
-		material = OgdenCiarletGeymonatNeoHookeanMooneyRivlin(kinematics=kinematics, parameters=parameters, decoup=True)
+		material = elastic.OgdenCiarletGeymonatNeoHookeanMooneyRivlin(
+			kinematics=kinematics, parameters=parameters, decoup=True
+		)
 	elif model in ("exponentialneoHookean"):
-		material = ExponentialNeoHookean(kinematics=kinematics, parameters=parameters)
+		material = elastic.ExponentialNeoHookean(kinematics=kinematics, parameters=parameters)
 	elif model in ("exponentialogdenciarletgeymonat"):
-		material = ExponentialOgdenCiarletGeymonat(kinematics=kinematics, parameters=parameters)
+		material = elastic.ExponentialOgdenCiarletGeymonat(kinematics=kinematics, parameters=parameters)
 	else:
 		assert 0, 'Material model ("' + model + '") not recognized. Aborting.'
 	return material
