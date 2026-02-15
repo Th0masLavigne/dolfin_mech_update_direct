@@ -1,4 +1,3 @@
-# Dolfin_mech
 
 ```{include} ../../README.md
 ```
