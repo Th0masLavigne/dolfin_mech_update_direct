@@ -21,7 +21,7 @@ from .operator import Operator
 ################################################################################
 
 
-class HyperIncompressibilityOperator(Operator):
+class HyperIncompressibility(Operator):
 	r"""Operator enforcing the incompressibility constraint in a hyperelastic framework.
 
 	This operator is the counterpart to the :class:`HyperHydrostaticPressureOperator`.
