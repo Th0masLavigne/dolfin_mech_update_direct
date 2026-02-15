@@ -5,6 +5,7 @@ from .constraint_macroscopicstresscomponent import MacroscopicStressComponentCon
 from .hyperelasticity import HyperElasticity
 from .hyperhydrostaticpressure import HyperHydrostaticPressure
 from .hyperincompressibility import HyperIncompressibility
+from .linearizedelasticity import LinearizedElasticity
 
 __all__ = [
 	"Operator",
@@ -12,4 +13,5 @@ __all__ = [
 	"HyperElasticity",
 	"HyperHydrostaticPressure",
 	"HyperIncompressibility",
+	"LinearizedElasticity",
 ]
