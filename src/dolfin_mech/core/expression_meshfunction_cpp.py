@@ -14,6 +14,14 @@
 ################################################################################
 
 
+"""C++ backend utility for FEniCS.
+
+Provides a high-performance C++ backend utility for FEniCS, enabling
+the evaluation of MeshFunctions within variational forms by bypassing
+Python-level overhead through pybind11-compiled Expressions.
+"""
+
+
 def get_ExprMeshFunction_cpp_pybind():
 	"""Return the C++ source code for a pybind11-based dolfin Expression.
 

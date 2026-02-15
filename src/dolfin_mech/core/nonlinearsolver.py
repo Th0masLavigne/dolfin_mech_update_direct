@@ -8,6 +8,14 @@
 ###                                                                          ###
 ################################################################################
 
+"""Defines the NonlinearSolver class.
+
+Provides an iterative Newton-Raphson
+framework for solving nonlinear problems with support for advanced
+linear backends (PETSc/MUMPS), adaptive relaxation techniques,
+and modal analysis via eigenvalue solving.
+"""
+
 import decimal
 import glob
 import math

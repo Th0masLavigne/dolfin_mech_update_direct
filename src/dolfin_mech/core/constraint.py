@@ -8,6 +8,13 @@
 ###                                                                          ###
 ################################################################################
 
+"""Defines the Constraint class.
+
+Integrates FEniCS Dirichlet boundary
+conditions with time-varying magnitudes to enable dynamic prescription
+of displacements, pressures, or other field variables.
+"""
+
 import dolfin
 
 from dolfin_mech.core import TimeVaryingConstant

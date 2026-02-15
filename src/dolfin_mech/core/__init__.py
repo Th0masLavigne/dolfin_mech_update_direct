@@ -7,6 +7,7 @@ from .foi import FOI
 from .mesh2ugrid import add_function_to_ugrid, add_functions_to_ugrid, mesh2ugrid
 from .nonlinearsolver import NonlinearSolver
 from .qoi import QOI
+from .step import Step
 from .timeintegrator import TimeIntegrator
 from .timevaryingconstant import TimeVaryingConstant
 from .write_vtu_file import write_VTU_file
@@ -26,4 +27,5 @@ __all__ = [
 	"write_VTU_file",
 	"get_ExprMeshFunction_cpp_pybind",
 	"NonlinearSolver",
+	"Step",
 ]

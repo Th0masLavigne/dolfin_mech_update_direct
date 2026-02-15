@@ -8,6 +8,13 @@
 ###                                                                          ###
 ################################################################################
 
+"""Defines the Loading base class.
+
+Couples FEniCS integration measures
+with time-varying scalar magnitudes to handle evolving boundary tractions,
+pressures, or body forces.
+"""
+
 import dolfin
 
 from dolfin_mech.core import TimeVaryingConstant
