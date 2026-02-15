@@ -47,4 +47,4 @@ jobs:
         run: |
           conda activate dolfin_mech
           cd tests
-          make
+          make test
