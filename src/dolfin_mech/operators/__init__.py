@@ -4,5 +4,12 @@ from .operator import Operator  # isort: skip
 from .constraint_macroscopicstresscomponent import MacroscopicStressComponentConstraint
 from .hyperelasticity import HyperElasticity
 from .hyperhydrostaticpressure import HyperHydrostaticPressure
+from .hyperincompressibility import HyperIncompressibility
 
-__all__ = ["Operator", "MacroscopicStressComponentConstraint", "HyperElasticity", "HyperHydrostaticPressure"]
+__all__ = [
+	"Operator",
+	"MacroscopicStressComponentConstraint",
+	"HyperElasticity",
+	"HyperHydrostaticPressure",
+	"HyperIncompressibility",
+]

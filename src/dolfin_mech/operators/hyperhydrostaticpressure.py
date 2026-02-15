@@ -24,8 +24,7 @@ from .operator import Operator
 
 
 class HyperHydrostaticPressure(Operator):
-	r"""Operator representing the virtual work of a hydrostatic pressure in a large
-	deformation (hyperelastic) framework.
+	r"""Operator representing the virtual work of a hydrostatic pressure in a large	deformation (hyperelastic).
 
 	This operator accounts for the internal work contribution of a pressure field
 	:math:`P`. In a mixed formulation, :math:`P` is often a Lagrange multiplier
